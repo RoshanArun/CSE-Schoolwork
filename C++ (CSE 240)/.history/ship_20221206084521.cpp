@@ -87,7 +87,6 @@ int main(){
     new CargoShip("Test3", 2003, 50000)
     };
 
-
     //prints ships
     for(int i = 0; i < 3; i++){
         ships[i]->print();

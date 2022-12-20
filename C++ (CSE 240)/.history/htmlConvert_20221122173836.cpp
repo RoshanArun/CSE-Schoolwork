@@ -4,7 +4,9 @@
 
 
 using namespace std;
-
+using std::ifstream;
+using std::ofstream;
+using std::endl;
 
 int main()
 {
