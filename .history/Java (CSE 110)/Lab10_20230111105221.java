@@ -7,6 +7,7 @@
 // TIME SPENT: 20 min
 //-------------------------------------------------------------------------
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class Lab10 {
 
