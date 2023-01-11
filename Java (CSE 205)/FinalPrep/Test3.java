@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
-import java.applet.Applet;
 
 // class extending applet component and implementing mouse event listener
 public class Test3 extends JFrame implements MouseListener {

@@ -170,5 +170,7 @@ public class Assignment2 {
 			}
 		} while (choice != 'e');
 		scan.close();
+		scan2.close();
+		test.close();
 	}
 }
