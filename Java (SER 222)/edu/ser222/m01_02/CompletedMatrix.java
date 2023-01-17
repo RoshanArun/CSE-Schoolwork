@@ -17,18 +17,17 @@ public class CompletedMatrix implements Matrix {
     private int cols = 0;
 
     public CompletedMatrix(int[][] matrix) {
-    	
-    	if(matrix == null) {
-    		throw new IllegalArgumentException("Illegal Argument");
-    	}
-    	else if (matrix.length == 0) {
+
+        if (matrix == null) {
+            throw new IllegalArgumentException("Illegal Argument");
+        } else if (matrix.length == 0) {
             rows = 0;
             cols = 0;
         } else {
             rows = matrix.length;
             cols = matrix[0].length;
         }
-        
+
         newMatrix = new int[rows][cols];
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
@@ -51,120 +50,118 @@ public class CompletedMatrix implements Matrix {
     public int getColumns() {
         return cols;
     }
-    
-    
+
     public String toString() {
-    	String output = "";
-    	
-    	for(int i = 0; i < getRows(); i++) {
-    		for(int j = 0; j < getColumns(); j++) {
-    			output = output + newMatrix[i][j] + " ";
-        	}
-    		output = output + "\n";
-    	}
-    	return output;
+        String output = "";
+
+        for (int i = 0; i < getRows(); i++) {
+            for (int j = 0; j < getColumns(); j++) {
+                output = output + newMatrix[i][j] + " ";
+            }
+            output = output + "\n";
+        }
+        return output;
     }
 
-    
     @Override
     public Matrix scale(int scalar) {
-    	CompletedMatrix one = new CompletedMatrix(this.newMatrix);
-    	
-    	for(int i = 0; i < getRows(); i++) {
-    		for(int j = 0; j < getColumns(); j++) {
-    			one.newMatrix[i][j] = one.newMatrix[i][j] * scalar;
-    		}
-    	}
-    	return one;
+        CompletedMatrix one = new CompletedMatrix(this.newMatrix);
+
+        for (int i = 0; i < getRows(); i++) {
+            for (int j = 0; j < getColumns(); j++) {
+                one.newMatrix[i][j] = one.newMatrix[i][j] * scalar;
+            }
+        }
+        return one;
     }
 
     @Override
     public Matrix plus(Matrix other) {
-    	CompletedMatrix one = new CompletedMatrix(this.newMatrix);
-    	
-    	if(other == null) {
-    		throw new IllegalArgumentException("Other matrix is Null");
-    	}
-    	
-    	if(other.getRows() != one.getRows() || other.getColumns() != one.getColumns()) {
-    		throw new RuntimeException("Runtime Exception, Matrices do not have matching dimensions.");
-    	}
-    	
-    	for(int i = 0; i < getRows(); i++) {
-    		for(int j = 0; j < getColumns(); j++) {
-    			one.newMatrix[i][j] = one.newMatrix[i][j] + other.getElement(i, j);
-    		}
-    	}
-    	
-    	return one;
+        CompletedMatrix one = new CompletedMatrix(this.newMatrix);
+
+        if (other == null) {
+            throw new IllegalArgumentException("Other matrix is Null");
+        }
+
+        if (other.getRows() != one.getRows() || other.getColumns() != one.getColumns()) {
+            throw new RuntimeException("Runtime Exception, Matrices do not have matching dimensions.");
+        }
+
+        for (int i = 0; i < getRows(); i++) {
+            for (int j = 0; j < getColumns(); j++) {
+                one.newMatrix[i][j] = one.newMatrix[i][j] + other.getElement(i, j);
+            }
+        }
+
+        return one;
     }
 
     @Override
     public Matrix minus(Matrix other) {
-    	CompletedMatrix one = new CompletedMatrix(this.newMatrix);
-    	
-    	if(other == null) {
-    		throw new IllegalArgumentException("Other matrix is Null");
-    	}
-    	
-    	if(other.getRows() != one.getRows() || other.getColumns() != one.getColumns()) {
-    		throw new RuntimeException("Runtime Exception, Matrices do not have matching dimensions.");
-    	}
-    	
-    	for(int i = 0; i < getRows(); i++) {
-    		for(int j = 0; j < getColumns(); j++) {
-    			one.newMatrix[i][j] = one.newMatrix[i][j] - other.getElement(i, j);
-    		}
-    	}
-    	
-    	return one;
+        CompletedMatrix one = new CompletedMatrix(this.newMatrix);
+
+        if (other == null) {
+            throw new IllegalArgumentException("Other matrix is Null");
+        }
+
+        if (other.getRows() != one.getRows() || other.getColumns() != one.getColumns()) {
+            throw new RuntimeException("Runtime Exception, Matrices do not have matching dimensions.");
+        }
+
+        for (int i = 0; i < getRows(); i++) {
+            for (int j = 0; j < getColumns(); j++) {
+                one.newMatrix[i][j] = one.newMatrix[i][j] - other.getElement(i, j);
+            }
+        }
+
+        return one;
     }
 
     @Override
-    public Matrix multiply(Matrix other) {   
-    	if(other == null) {
-    		throw new IllegalArgumentException("Other matrix is Null");
-    	}
-    	
-    	if(this.getColumns() != other.getRows()) {
-    		throw new RuntimeException("Runtime Exception, Matrices do not have matching dimensions.");
-    	}
-    	
-    	int x[][] = new int[this.getRows()][other.getColumns()];
+    public Matrix multiply(Matrix other) {
+        if (other == null) {
+            throw new IllegalArgumentException("Other matrix is Null");
+        }
 
-    	for(int i = 0; i < this.getRows(); i++) {
-    		for(int j = 0; j < other.getColumns(); j++) {
-    			for(int k = 0; k < this.getColumns(); k++) {
-        			x[i][j] = x[i][j] + this.getElement(i, k) * other.getElement(k, j);
-    			}
-    		}
-    	}
-    	
-    	return new CompletedMatrix(x);
+        if (this.getColumns() != other.getRows()) {
+            throw new RuntimeException("Runtime Exception, Matrices do not have matching dimensions.");
+        }
+
+        int x[][] = new int[this.getRows()][other.getColumns()];
+
+        for (int i = 0; i < this.getRows(); i++) {
+            for (int j = 0; j < other.getColumns(); j++) {
+                for (int k = 0; k < this.getColumns(); k++) {
+                    x[i][j] = x[i][j] + this.getElement(i, k) * other.getElement(k, j);
+                }
+            }
+        }
+
+        return new CompletedMatrix(x);
     }
-    
+
     public boolean equals(Object other) {
-    	
-    	if(other == null || this == null) {
-    		return false;
-    	}
-    	
-    	if(other instanceof Matrix) {
-    		Matrix one = (Matrix) other;
-    		
-    		if(this.getRows() == one.getRows() && this.getColumns() == one.getColumns()) {
-				for(int i = 0; i < getRows(); i++) {
-	        		for(int j = 0; j < getColumns(); j++) {
-	        			if(this.getElement(i, j) != one.getElement(i, j)) {
-	        				return false;
-	        			}
-	        		}
-	        	}
-				return true;
-    		}
-    		return false;
-    	}
-    	return false;
+
+        if (other == null || this == null) {
+            return false;
+        }
+
+        if (other instanceof Matrix) {
+            Matrix one = (Matrix) other;
+
+            if (this.getRows() == one.getRows() && this.getColumns() == one.getColumns()) {
+                for (int i = 0; i < getRows(); i++) {
+                    for (int j = 0; j < getColumns(); j++) {
+                        if (this.getElement(i, j) != one.getElement(i, j)) {
+                            return false;
+                        }
+                    }
+                }
+                return true;
+            }
+            return false;
+        }
+        return false;
     }
 
     /**
@@ -217,7 +214,7 @@ public class CompletedMatrix implements Matrix {
         System.out.println("m1 * m1:\n" + m1.multiply(m1));
         System.out.println("m2 * m2:\n" + m2.multiply(m2));
         System.out.println("m2 * m3:\n" + m2.multiply(m3));
-        
+
         // test operations (invalid)
         // System.out.println("m1 + m2" + m1.plus(m2));
         // System.out.println("m1 + m5" + m1.plus(m5));
