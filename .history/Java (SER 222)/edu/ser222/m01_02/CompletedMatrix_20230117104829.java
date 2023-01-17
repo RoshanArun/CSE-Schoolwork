@@ -58,7 +58,7 @@ public class CompletedMatrix implements Matrix {
     	
     	for(int i = 0; i < getRows(); i++) {
     		for(int j = 0; j < getColumns(); j++) {
-    			output = output + newMatrix[i][j] + " ";
+    			output = output + String.format("%5d", newMatrix[i][j]);
         	}
     		output = output + "\n";
     	}
@@ -122,25 +122,23 @@ public class CompletedMatrix implements Matrix {
 
     @Override
     public Matrix multiply(Matrix other) {   
+    	CompletedMatrix one = new CompletedMatrix(this.newMatrix);
+
     	if(other == null) {
     		throw new IllegalArgumentException("Other matrix is Null");
     	}
     	
-    	if(this.getColumns() != other.getRows()) {
+    	if(other.getRows() != one.getRows() || other.getColumns() != one.getColumns()) {
     		throw new RuntimeException("Runtime Exception, Matrices do not have matching dimensions.");
     	}
     	
-    	int x[][] = new int[this.getRows()][other.getColumns()];
-
-    	for(int i = 0; i < this.getRows(); i++) {
-    		for(int j = 0; j < other.getColumns(); j++) {
-    			for(int k = 0; k < this.getColumns(); k++) {
-        			x[i][j] = x[i][j] + this.getElement(i, k) * other.getElement(k, j);
-    			}
+    	for(int i = 0; i < getRows(); i++) {
+    		for(int j = 0; j < getColumns(); j++) {
+    			one.newMatrix[i][j] = one.newMatrix[i][j] * other.getElement(i, j);
     		}
     	}
     	
-    	return new CompletedMatrix(x);
+    	return one;
     }
     
     public boolean equals(Object other) {
@@ -214,9 +212,9 @@ public class CompletedMatrix implements Matrix {
         System.out.println("3 * m5:\n" + m5.scale(3));
 
         // not tested... multiply(). you know what to do.
-        System.out.println("m1 * m1:\n" + m1.multiply(m1));
-        System.out.println("m2 * m2:\n" + m2.multiply(m2));
-        System.out.println("m2 * m3:\n" + m2.multiply(m3));
+        System.out.println("m1 + m1:\n" + m1.multiply(m1));
+        System.out.println("2 * m2:\n" + m2.multiply(m2));
+        System.out.println("m2 + m3:\n" + m2.multiply(m3));
         
         // test operations (invalid)
         // System.out.println("m1 + m2" + m1.plus(m2));
