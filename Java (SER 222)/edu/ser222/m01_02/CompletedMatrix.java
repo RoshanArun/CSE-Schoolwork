@@ -1,5 +1,7 @@
 package edu.ser222.m01_02;
 
+import m01_02.Matrix;
+
 /**
  * An implementation of the Matrix ADT. Provides four basic operations over an
  * immutable type.
