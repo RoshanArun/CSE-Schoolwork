@@ -2,6 +2,8 @@ package edu.ser222.m01_03;
 
 import java.util.NoSuchElementException;
 
+import org.w3c.dom.Node;
+
 /**
  * This program provides an implementation of the Deque interface. Also provides
  * a main that
@@ -13,9 +15,13 @@ import java.util.NoSuchElementException;
 
 public class CompletedDeque<Item> implements Deque<Item> {
 
+    private Item head;
+    private Node tail;
+
     // TODO: implement all the methods
     public CompletedDeque() {
-
+        tail = null;
+        head = null;
     }
 
     public void enqueueFront(Item element) {
