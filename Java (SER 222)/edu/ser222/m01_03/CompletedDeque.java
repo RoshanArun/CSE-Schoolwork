@@ -15,13 +15,15 @@ import org.w3c.dom.Node;
 
 public class CompletedDeque<Item> implements Deque<Item> {
 
-    private Item head;
+    private Node head;
     private Node tail;
+    private int size;
 
     // TODO: implement all the methods
     public CompletedDeque() {
         tail = null;
         head = null;
+        size = 0;
     }
 
     public void enqueueFront(Item element) {
@@ -49,11 +51,15 @@ public class CompletedDeque<Item> implements Deque<Item> {
     }
 
     public boolean isEmpty() {
-        return true;
+        if (size == 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public int size() {
-        return 1;
+        return size;
     }
 
     @Override
