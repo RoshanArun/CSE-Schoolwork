@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Launch CompletedDeque",
+      "request": "launch",
+      "mainClass": "edu.ser222.m01_03.CompletedDeque",
+      "projectName": "CSE-Schoolwork_ad172680"
+    },
+    {
+      "type": "java",
       "name": "Launch CompletedMatrix",
       "request": "launch",
       "mainClass": "edu.ser222.m01_02.CompletedMatrix",

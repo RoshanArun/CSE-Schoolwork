@@ -2,8 +2,6 @@ package edu.ser222.m01_03;
 
 import java.util.NoSuchElementException;
 
-import org.w3c.dom.Node;
-
 /**
  * This program provides an implementation of the Deque interface. Also provides
  * a main that
@@ -15,11 +13,46 @@ import org.w3c.dom.Node;
 
 public class CompletedDeque<Item> implements Deque<Item> {
 
-    private Node head;
-    private Node tail;
+    private class Node<Item> {
+        private Item item;
+        private Node next;
+        private Node prev;
+
+        public Node(Item item) {
+            this.item = item;
+            prev = null;
+            next = null;
+        }
+
+        public Item getItem() {
+            return item;
+        }
+
+        public void setItem(Item item) {
+            this.item = item;
+        }
+
+        public Node<Item> getPrev() {
+            return prev;
+        }
+
+        public void setPrev(Node<Item> prev) {
+            this.prev = prev;
+        }
+
+        public Node<Item> getNext() {
+            return next;
+        }
+
+        public void setNext(Node<Item> next) {
+            this.next = next;
+        }
+    }
+
+    private Node<Item> head;
+    private Node<Item> tail;
     private int size;
 
-    // TODO: implement all the methods
     public CompletedDeque() {
         tail = null;
         head = null;
@@ -27,27 +60,83 @@ public class CompletedDeque<Item> implements Deque<Item> {
     }
 
     public void enqueueFront(Item element) {
+        Node<Item> node = new Node<Item>(element);
 
+        if (size == 0) {
+            head = node;
+            tail = node;
+        } else {
+            node.setNext(head);
+            head.setPrev(node);
+            head = node;
+        }
+        size = size + 1;
     }
 
     public void enqueueBack(Item element) {
+        Node<Item> node = new Node<Item>(element);
 
+        if (size == 0) {
+            head = node;
+            tail = node;
+        } else {
+            tail.setNext(node);
+            node.setPrev(tail);
+            tail = node;
+        }
+        size = size + 1;
     }
 
     public Item dequeueFront() {
-        throw new NoSuchElementException();
+        if (head == null) {
+            throw new NoSuchElementException("empty");
+        }
+
+        Item item = head.getItem();
+        head = head.getNext();
+
+        if (head == null) {
+            tail = null;
+        } else {
+            head.setPrev(null);
+        }
+        size = size - 1;
+        return item;
     }
 
     public Item dequeueBack() {
-        throw new NoSuchElementException();
+        if (tail == null) {
+            throw new NoSuchElementException("empty");
+        }
+
+        Item item = tail.getItem();
+        tail = tail.getPrev();
+
+        if (tail == null) {
+            head = null;
+        } else {
+            tail.setNext(null);
+        }
+        size = size - 1;
+        return item;
     }
 
     public Item first() {
-        throw new NoSuchElementException();
+        if (head == null) {
+            throw new NoSuchElementException("empty");
+        }
+
+        Item item = head.getItem();
+        return item;
     }
 
     public Item last() {
-        throw new NoSuchElementException();
+        if (tail == null) {
+            throw new NoSuchElementException("empty");
+        }
+
+        Item item = tail.getItem();
+        return item;
     }
 
     public boolean isEmpty() {
@@ -64,7 +153,17 @@ public class CompletedDeque<Item> implements Deque<Item> {
 
     @Override
     public String toString() {
-        return "test";
+        if (isEmpty()) {
+            return "empty";
+        }
+
+        String end = "";
+        Node<Item> current = tail;
+        while (current != null) {
+            end = end + current.getItem() + " ";
+            current = current.getPrev();
+        }
+        return end;
     }
 
     /**
@@ -86,7 +185,7 @@ public class CompletedDeque<Item> implements Deque<Item> {
         System.out.println("size: " + deque.size());
         System.out.println("contents:\n" + deque.toString());
 
-        // deque features
+        // // deque features
         System.out.println(deque.dequeueFront());
         deque.enqueueFront(1);
         deque.enqueueFront(11);
