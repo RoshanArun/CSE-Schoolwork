@@ -13,6 +13,28 @@ public class CompletedOrderedList<T extends Comparable<T>> extends CompletedList
 
     @Override
     public void add(T element) throws NullPointerException {
+        // if (element == null) {
+        // throw new NullPointerException();
+        // }
+
+        // DoubleLinearNode<T> node = new DoubleLinearNode<T>(element);
+        // DoubleLinearNode<T> current;
+
+        // if (head == null || head.getItem().compareTo(node.getItem()) > 0) {
+        // node.setNext(head);
+        // head = node;
+        // } else {
+        // current = head;
+        // while (current.getNext() != null &&
+        // current.getNext().getItem().compareTo(node.getItem()) < 0) {
+        // current = current.getNext();
+        // }
+        // node.setNext(current.getNext());
+        // current.setNext(node);
+        // }
+
+        // count = count + 1;
+
         // Create a new node with the given element
         DoubleLinearNode<T> newNode = new DoubleLinearNode<T>(element);
 
@@ -62,4 +84,5 @@ public class CompletedOrderedList<T extends Comparable<T>> extends CompletedList
         // Increment the list size
         count++;
     }
+    // TODO: implement this!
 }

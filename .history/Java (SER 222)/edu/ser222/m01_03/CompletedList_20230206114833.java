@@ -1,8 +1,9 @@
 package edu.ser222.m01_03;
 
-import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+
+import javax.management.RuntimeErrorException;
 
 /**
  * CompletedList represents an implementation of a list.
@@ -31,9 +32,7 @@ public class CompletedList<T> implements ListADT<T>, Iterable<T> {
 
         DoubleLinearNode<T> result = head;
         head = head.getNext();
-        if (head != null) {
-            head.setPrev(null);
-        }
+        head.prev = null;
         count = count - 1;
         return result.getItem();
     }
@@ -45,9 +44,7 @@ public class CompletedList<T> implements ListADT<T>, Iterable<T> {
 
         DoubleLinearNode<T> result = tail;
         tail = tail.getPrev();
-        if (tail != null) {
-            tail.setNext(null);
-        }
+        tail.prev = null;
         count = count - 1;
         return result.getItem();
     }
@@ -69,10 +66,6 @@ public class CompletedList<T> implements ListADT<T>, Iterable<T> {
 
         if (found == false) {
             throw new NoSuchElementException();
-        }
-
-        if (element == null) {
-            throw new NullPointerException();
         }
 
         if (current.equals(head)) {
@@ -104,29 +97,11 @@ public class CompletedList<T> implements ListADT<T>, Iterable<T> {
         return found;
     }
 
+    @Override
     public Iterator<T> iterator() {
-        return new Iterator<T>() {
-            private DoubleLinearNode<T> current = head;
-            private int expectedModCount = modChange;
+        return null;
+        // TODO Auto-generated method stub
 
-            @Override
-            public boolean hasNext() {
-                if (expectedModCount != modChange) {
-                    throw new ConcurrentModificationException();
-                }
-                return current != null;
-            }
-
-            @Override
-            public T next() {
-                if (!hasNext()) {
-                    throw new NoSuchElementException();
-                }
-                T item = current.getItem();
-                current = current.getNext();
-                return item;
-            }
-        };
     }
 
     public int size() {
@@ -141,20 +116,10 @@ public class CompletedList<T> implements ListADT<T>, Iterable<T> {
     }
 
     public T first() {
-        if (count == 0) {
-            throw new NoSuchElementException();
-        }
         return head.getItem();
     }
 
     public T last() {
-        if (count == 0) {
-            throw new NoSuchElementException();
-        }
-        tail = head;
-        while (tail.getNext() != null) {
-            tail = tail.getNext();
-        }
         return tail.getItem();
     }
 
@@ -163,12 +128,8 @@ public class CompletedList<T> implements ListADT<T>, Iterable<T> {
         String result = "";
 
         while (current != null) {
-            result = result + (current.getItem()).toString() + " ";
+            result = result + (current.getItem()).toString() + "\n";
             current = current.getNext();
-        }
-
-        if (count == 0) {
-            return "empty";
         }
 
         return result;
@@ -213,5 +174,4 @@ public class CompletedList<T> implements ListADT<T>, Iterable<T> {
             this.prev = prev;
         }
     }
-
 }

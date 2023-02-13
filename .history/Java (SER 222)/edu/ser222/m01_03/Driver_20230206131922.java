@@ -17,9 +17,16 @@ public class Driver {
         list.add(23);
         list.add(24);
         list.add(16);
-
+        list.add(3);
+        list.add(7);
+        list.add(17);
+        list.add(9);
+        list.add(13);
+        list.add(14);
+        list.add(1);
         System.out.println(list);
 
+        list.removeFirst();
         list.removeLast();
 
         // display using toString()
@@ -31,17 +38,17 @@ public class Driver {
          * 3 9 13 16
          */
         // display using automatic iterator way
-        for (Integer x : list) {
-            System.out.print(x + " ");
-        }
-        System.out.println();
-        // display using manual iterator way
-        Iterator iter = list.iterator();
-        while (iter.hasNext()) {
-            System.out.print(iter.next());
-            if (iter.hasNext())
-                System.out.print(" ");
-        }
+        // for (Integer x : list) {
+        // System.out.print(x + " ");
+        // }
+        // System.out.println();
+        // // display using manual iterator way
+        // Iterator iter = list.iterator();
+        // while (iter.hasNext()) {
+        // System.out.print(iter.next());
+        // if (iter.hasNext())
+        // System.out.print(" ");
+        // }
         // toString is probably the nicest if we just need to display.
         // You should definitely write a test for ConcurrentModificationException...
     }

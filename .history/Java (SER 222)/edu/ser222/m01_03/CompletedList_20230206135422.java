@@ -1,6 +1,5 @@
 package edu.ser222.m01_03;
 
-import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -31,9 +30,7 @@ public class CompletedList<T> implements ListADT<T>, Iterable<T> {
 
         DoubleLinearNode<T> result = head;
         head = head.getNext();
-        if (head != null) {
-            head.setPrev(null);
-        }
+        head.prev = null;
         count = count - 1;
         return result.getItem();
     }
@@ -43,13 +40,20 @@ public class CompletedList<T> implements ListADT<T>, Iterable<T> {
             throw new NoSuchElementException("");
         }
 
-        DoubleLinearNode<T> result = tail;
-        tail = tail.getPrev();
-        if (tail != null) {
-            tail.setNext(null);
+        DoubleLinearNode<T> current;
+
+        tail = head;
+        current = tail;
+
+        while (tail.getNext() != null) {
+            current = tail;
+            tail = tail.getNext();
         }
-        count = count - 1;
-        return result.getItem();
+
+        tail = current;
+        current.next = null;
+
+        return tail.getItem();
     }
 
     @Override
@@ -104,29 +108,11 @@ public class CompletedList<T> implements ListADT<T>, Iterable<T> {
         return found;
     }
 
+    @Override
     public Iterator<T> iterator() {
-        return new Iterator<T>() {
-            private DoubleLinearNode<T> current = head;
-            private int expectedModCount = modChange;
+        return null;
+        // TODO Auto-generated method stub
 
-            @Override
-            public boolean hasNext() {
-                if (expectedModCount != modChange) {
-                    throw new ConcurrentModificationException();
-                }
-                return current != null;
-            }
-
-            @Override
-            public T next() {
-                if (!hasNext()) {
-                    throw new NoSuchElementException();
-                }
-                T item = current.getItem();
-                current = current.getNext();
-                return item;
-            }
-        };
     }
 
     public int size() {
@@ -213,5 +199,4 @@ public class CompletedList<T> implements ListADT<T>, Iterable<T> {
             this.prev = prev;
         }
     }
-
 }

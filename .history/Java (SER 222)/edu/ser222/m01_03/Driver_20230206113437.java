@@ -17,11 +17,21 @@ public class Driver {
         list.add(23);
         list.add(24);
         list.add(16);
-
+        list.add(3);
+        list.add(7);
+        list.add(17);
+        list.add(9);
+        list.add(13);
+        list.add(14);
+        list.add(1);
         System.out.println(list);
 
+        list.remove(7);
+        list.removeFirst();
+        list.remove(17);
         list.removeLast();
-
+        list.remove(14);
+        list.removeLast();
         // display using toString()
         System.out.println(list);
 

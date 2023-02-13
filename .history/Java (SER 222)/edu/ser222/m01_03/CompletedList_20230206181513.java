@@ -105,28 +105,9 @@ public class CompletedList<T> implements ListADT<T>, Iterable<T> {
     }
 
     public Iterator<T> iterator() {
-        return new Iterator<T>() {
-            private DoubleLinearNode<T> current = head;
-            private int expectedModCount = modChange;
-
-            @Override
-            public boolean hasNext() {
-                if (expectedModCount != modChange) {
-                    throw new ConcurrentModificationException();
-                }
-                return current != null;
-            }
-
-            @Override
-            public T next() {
-                if (!hasNext()) {
-                    throw new NoSuchElementException();
-                }
-                T item = current.getItem();
-                current = current.getNext();
-                return item;
-            }
-        };
+        public Iterator<T> iterator() {
+            return new ListIterator();
+        }
     }
 
     public int size() {
@@ -214,4 +195,26 @@ public class CompletedList<T> implements ListADT<T>, Iterable<T> {
         }
     }
 
+    private class ListIterator implements Iterator<T> {
+        private DoubleLinearNode<T> current = head;
+        private int expectedModCount = modChange;
+
+        @Override
+        public boolean hasNext() {
+            if (expectedModCount != modChange) {
+                throw new ConcurrentModificationException();
+            }
+            return current != null;
+        }
+
+        @Override
+        public T next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            T item = current.getItem();
+            current = current.getNext();
+            return item;
+        }
+    }
 }

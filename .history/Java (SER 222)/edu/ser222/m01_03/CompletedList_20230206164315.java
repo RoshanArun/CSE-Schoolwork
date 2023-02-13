@@ -104,10 +104,11 @@ public class CompletedList<T> implements ListADT<T>, Iterable<T> {
         return found;
     }
 
+    @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
             private DoubleLinearNode<T> current = head;
-            private int expectedModCount = modChange;
+            int expectedModCount = modChange;
 
             @Override
             public boolean hasNext() {

@@ -104,14 +104,15 @@ public class CompletedList<T> implements ListADT<T>, Iterable<T> {
         return found;
     }
 
+    @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
+            private int modChangeCnt = modChange;
             private DoubleLinearNode<T> current = head;
-            private int expectedModCount = modChange;
 
             @Override
             public boolean hasNext() {
-                if (expectedModCount != modChange) {
+                if (modChange != modChangeCnt) {
                     throw new ConcurrentModificationException();
                 }
                 return current != null;
@@ -119,12 +120,12 @@ public class CompletedList<T> implements ListADT<T>, Iterable<T> {
 
             @Override
             public T next() {
-                if (!hasNext()) {
+                if (current == null) {
                     throw new NoSuchElementException();
                 }
-                T item = current.getItem();
+                T result = current.getItem();
                 current = current.getNext();
-                return item;
+                return result;
             }
         };
     }

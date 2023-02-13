@@ -106,15 +106,15 @@ public class CompletedList<T> implements ListADT<T>, Iterable<T> {
 
     public Iterator<T> iterator() {
         return new Iterator<T>() {
-            private DoubleLinearNode<T> current = head;
-            private int expectedModCount = modChange;
+            private int iterModCount;
+            private DoubleLinearNode<T> current;
 
             @Override
-            public boolean hasNext() {
-                if (expectedModCount != modChange) {
-                    throw new ConcurrentModificationException();
+            public boolean hasNext() throws ConcurrentModificationException {
+                if (modChange != iterModCount) {
+                    throw new ConcurrentModificationException("List has been modified");
                 }
-                return current != null;
+                return (current != null);
             }
 
             @Override
