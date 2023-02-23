@@ -3,6 +3,20 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Launch HW1",
+      "request": "launch",
+      "mainClass": "HW1",
+      "projectName": "CSE-Schoolwork_ad172680"
+    },
+    {
+      "type": "java",
+      "name": "Launch CompletedBenchmarkTool",
+      "request": "launch",
+      "mainClass": "edu.ser222.m02_01.CompletedBenchmarkTool",
+      "projectName": "CSE-Schoolwork_ad172680"
+    },
+    {
+      "type": "java",
       "name": "Launch CheckersDriver",
       "request": "launch",
       "mainClass": "edu.ser216.checkers.core.CheckersDriver",

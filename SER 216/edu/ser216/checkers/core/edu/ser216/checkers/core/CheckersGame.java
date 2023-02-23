@@ -1,4 +1,3 @@
-package edu.ser216.checkers.core;
 
 /**
  * An interface that abstractly defines a checkers game board with logic.
@@ -21,7 +20,7 @@ public interface CheckersGame {
      * 2|_|x|_|x|_|x|_|x|
      * 1|x|_|x|_|x|_|x|_|
      * a b c d e f g h
-     * getSquare(0,0) would return 'x'.
+     * getSquare(0,0) would return 'x'
      * 
      * @param row    Row.
      * @param column Column.
