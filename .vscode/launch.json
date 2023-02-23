@@ -3,6 +3,16 @@
   "configurations": [
     {
       "type": "java",
+<<<<<<< Updated upstream
+=======
+      "name": "Launch CompletedBenchMarkTool",
+      "request": "launch",
+      "mainClass": "edu.ser222.m02_01.CompletedBenchMarkTool",
+      "projectName": "CSE-Schoolwork_ad172680"
+    },
+    {
+      "type": "java",
+>>>>>>> Stashed changes
       "name": "Launch HW1",
       "request": "launch",
       "mainClass": "HW1",
