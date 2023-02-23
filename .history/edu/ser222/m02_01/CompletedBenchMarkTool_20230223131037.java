@@ -84,7 +84,7 @@ public class CompletedBenchmarkTool implements BenchmarkTool {
     public static void halves(Integer[] array, int size) {
         int i = 0;
         if (size > 1) {
-            halves(array, size / 2 - 1);
+            halves(array, size / 2);
             for (int j = 0; j < size; j++) {
                 Integer counter = Integer.valueOf(i);
                 array[j] = counter;

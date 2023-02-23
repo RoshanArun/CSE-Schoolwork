@@ -75,16 +75,26 @@ public class CompletedBenchmarkTool implements BenchmarkTool {
     }
 
     public Integer[] generateTestDataHalves(int size) {
-
+        int value = 0;
+        int count = 0;
         Integer[] arr = new Integer[size];
-        halves(arr, size);
+
+        while (count < size) {
+            for (int i = 0; i < (size / (value + 1)); i++) {
+                arr[count] = value;
+                count++;
+            }
+            value++;
+        }
+
         return arr;
+
     }
 
-    public static void halves(Integer[] array, int size) {
+    public static void recursiveHelper(Integer[] array, int size) {
         int i = 0;
-        if (size > 1) {
-            halves(array, size / 2 - 1);
+        if (size >= 1) {
+            recursiveHelper(array, size / 2);
             for (int j = 0; j < size; j++) {
                 Integer counter = Integer.valueOf(i);
                 array[j] = counter;
@@ -110,6 +120,11 @@ public class CompletedBenchmarkTool implements BenchmarkTool {
 
         return arr;
 
+    }
+
+    public double computeDoublingFormula(double t1, double t2) {
+        double result = t1 / t2;
+        return result;
     }
 
     public double benchmarkInsertionSort(Integer[] small, Integer[] large) {
@@ -146,23 +161,16 @@ public class CompletedBenchmarkTool implements BenchmarkTool {
         Integer[] halfRandom = generateTestDataHalfRandom(size);
 
         System.out.printf("%s %s\n", "Insertion", "Shellsort");
-        System.out.printf("Bin %.3f %.3f\n", Math.abs(benchmarkInsertionSort(binary, binary)),
-                Math.abs(benchmarkShellsort(binary, binary)));
-        System.out.printf("Half %.3f %.3f\n", Math.abs(benchmarkInsertionSort(halves, halves)),
-                Math.abs(benchmarkShellsort(halves, halves)));
-        System.out.printf("RanInt %.3f %.3f\n", Math.abs(benchmarkInsertionSort(halfRandom, halfRandom)),
-                Math.abs(benchmarkShellsort(halfRandom, halfRandom)));
-    }
-
-    public double computeDoublingFormula(double t1, double t2) {
-        double b = Math.log(t2 / t1) / Math.log(2);
-        return b;
-
+        System.out.printf("Bin %.3f %.3f\n", benchmarkInsertionSort(binary, binary),
+                benchmarkShellsort(binary, binary));
+        System.out.printf("Half %.3f %.3f\n", benchmarkInsertionSort(halves, halves),
+                benchmarkShellsort(halves, halves));
+        System.out.printf("RanInt %.3f %.3f\n", benchmarkInsertionSort(halfRandom, halfRandom),
+                benchmarkShellsort(halfRandom, halfRandom));
     }
 
     public static void main(String args[]) {
         BenchmarkTool me = new CompletedBenchmarkTool();
-        System.out.println(me.computeDoublingFormula(8, 32768));
         int size = 4096;
 
         // NOTE: feel free to change size here. all other code must go in the
