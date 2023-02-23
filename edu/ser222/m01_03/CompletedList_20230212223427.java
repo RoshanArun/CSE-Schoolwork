@@ -102,7 +102,7 @@ public class CompletedList<T> implements ListADT<T>, Iterable<T> {
     @Override
     public Iterator<T> iterator() {
         // TODO Auto-generated method stub
-        return null;
+        return new LinkedIterator<T>(head, count);
     }
 
     public int size() {

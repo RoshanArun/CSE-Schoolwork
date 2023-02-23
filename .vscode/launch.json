@@ -4,6 +4,8 @@
     {
       "type": "java",
 <<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
       "name": "Launch CompletedBenchMarkTool",
@@ -49,6 +51,10 @@
     },
     {
       "type": "java",
+=======
+>>>>>>> parent of 8d66cdb (CSE Update)
+=======
+>>>>>>> parent of 8d66cdb (CSE Update)
 =======
 >>>>>>> parent of 8d66cdb (CSE Update)
       "name": "Launch Driver",
