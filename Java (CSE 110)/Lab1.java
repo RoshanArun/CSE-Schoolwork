@@ -8,9 +8,6 @@ import java.util.Scanner;
 
 public class Lab1 {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		// create a Scanner object to get input from the keyboard

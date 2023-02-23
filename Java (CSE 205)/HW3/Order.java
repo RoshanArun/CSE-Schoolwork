@@ -22,9 +22,6 @@ public class Order {
 		price = p;
 	}
 
-	/**
-	 * @return String
-	 */
 	// simple return methods
 	public String getName() {
 		return name;

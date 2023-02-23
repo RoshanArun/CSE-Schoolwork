@@ -5,9 +5,6 @@ public class MyNode<E> extends MyList {
 	protected E data;
 	protected MyNode link;
 
-	/**
-	 * @return E
-	 */
 	public E getData() {
 		return data;
 	}

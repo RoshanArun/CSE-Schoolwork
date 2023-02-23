@@ -14,10 +14,6 @@ import java.util.Iterator;
 public class CompletedOrderedList<T extends Comparable<T>> extends CompletedList<T> implements OrderedListADT<T> {
     private DoubleLinearNode<T> list;
 
-    /**
-     * @param element
-     * @throws NullPointerException
-     */
     @Override
     public void add(T element) throws NullPointerException {
         if (element == null) {

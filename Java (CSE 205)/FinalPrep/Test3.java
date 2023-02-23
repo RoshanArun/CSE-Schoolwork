@@ -15,9 +15,6 @@ public class Test3 extends JFrame implements MouseListener {
 		addMouseListener(this);
 	}
 
-	/**
-	 * @param (enumeration.hasMoreElements()
-	 */
 	public void paint(Graphics graphics) { // paint method implementation
 		super.paint(graphics);
 		graphics.setColor(Color.black);

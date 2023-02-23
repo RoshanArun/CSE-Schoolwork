@@ -18,9 +18,6 @@ public class Rect extends Shape {
         super(x, y, width, height, color);
     }
 
-    /**
-     * @param g
-     */
     public void draw(Graphics g) {
         g.setColor(g.getColor());
         g.fillRect(getX(), getY(), getWidth(), getHeight());

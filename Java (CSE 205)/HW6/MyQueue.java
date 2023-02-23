@@ -10,9 +10,6 @@ public class MyQueue<E> extends Main2 {
 		back = null;
 	}
 
-	/**
-	 * @param v
-	 */
 	public void enqueue(E v) {
 		MyNode node = new MyNode(v);
 		if (length == 0) {

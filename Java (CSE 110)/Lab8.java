@@ -30,9 +30,6 @@ public class Lab8 {
 		lastName = lName;
 	}
 
-	/**
-	 * @return String
-	 */
 	public String getMajor() {
 		return studentMajor;
 	}

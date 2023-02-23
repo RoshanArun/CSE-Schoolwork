@@ -9,9 +9,6 @@ import java.util.Scanner;
 
 public class HW1 {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 
 		// create a Scanner object to get input from the keyboard

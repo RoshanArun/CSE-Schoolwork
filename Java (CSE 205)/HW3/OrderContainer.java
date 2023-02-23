@@ -13,9 +13,6 @@ public class OrderContainer {
 	public static Order[] order = new Order[100];
 	private static int position = 0;
 
-	/**
-	 * @param s
-	 */
 	// adds a order to array
 	public static void addOrder(Order s) {
 		if (position <= 99) {

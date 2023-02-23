@@ -12,9 +12,6 @@ public abstract class Box {
 		height = h;
 	}
 
-	/**
-	 * @return int
-	 */
 	public int calcVolume() {
 		return length * width * height;
 	}

@@ -63,9 +63,6 @@ public class OrderInputPanel extends JPanel implements ActionListener {
 
 	}
 
-	/**
-	 * @param e
-	 */
 	// adds a actionlistener for the button, allows inputs to be correct before
 	// entering into object
 	public void actionPerformed(ActionEvent e) {

@@ -26,9 +26,6 @@ public class CancelledOrder extends Order1 {
 		totalCost = ((unitPrice * quantity) * .02);
 	}
 
-	/**
-	 * @return String
-	 */
 	// to string method
 	public String toString() {
 		return "\n***Cancelled Order" + "\nProduct Name: " + productName + "\nQuantity: " + quantity + "\nUnit Price: "

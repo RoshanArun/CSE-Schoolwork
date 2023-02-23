@@ -31,9 +31,6 @@ public class NewOrder extends Order1 {
 		}
 	}
 
-	/**
-	 * @return String
-	 */
 	// to string method
 	public String toString() {
 		return "\n***New Order" + "\nProduct Name: " + productName + "\nQuantity: " + quantity + "\nUnit Price: "

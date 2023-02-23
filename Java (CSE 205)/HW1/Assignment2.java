@@ -11,10 +11,6 @@ package HW1;
 import java.util.Scanner;
 
 public class Assignment2 {
-
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		// variables that need to be created
 		Order1[] empty = new Order1[100];

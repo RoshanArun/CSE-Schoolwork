@@ -30,9 +30,6 @@ public abstract class Shape extends Main {
 
 	public abstract void draw(Graphics g);
 
-	/**
-	 * @return int
-	 */
 	public int getX() {
 		return x;
 	}

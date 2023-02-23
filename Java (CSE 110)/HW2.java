@@ -8,58 +8,55 @@
 import java.util.Scanner;
 
 public class HW2 {
-
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
-		// create a Scanner object to get input from the keyboard
+		
+		//create a Scanner object to get input from the keyboard
 		Scanner scan = new Scanner(System.in);
-
-		// declare variables
+				
+		//declare variables
 		String str1 = "";
 		String str2 = "";
 		String str3 = "";
-
-		// get user inputs
+		
+		//get user inputs
 		System.out.println("Enter string 1: ");
 		str1 = scan.nextLine();
-
+				
 		System.out.println("Enter string 2: ");
 		str2 = scan.nextLine();
-
+				
 		System.out.println("Enter string 3: ");
 		str3 = scan.nextLine();
-
-		// Comparing strings lexographically using compareTo funciton
-		if (str1.compareTo(str2) < 0) {
-			if (str1.compareTo(str3) < 0) {
+		
+		//Comparing strings lexographically using compareTo funciton
+		if(str1.compareTo(str2) < 0) {
+			if(str1.compareTo(str3) < 0) {				
 				System.out.println(str1);
-				if (str2.compareTo(str3) < 0) {
+				if(str2.compareTo(str3) < 0) {
 					System.out.println(str2);
 					System.out.println(str3);
-				} else {
+				}else {
 					System.out.println(str3);
 					System.out.println(str2);
 				}
-			} else {
+			}else {
 				System.out.println(str3);
 				System.out.println(str1);
 				System.out.println(str2);
 			}
-		} else if (str2.compareTo(str1) < 0) {
-			if (str2.compareTo(str3) < 0) {
+		}
+		else if(str2.compareTo(str1) < 0) {
+			if(str2.compareTo(str3) < 0) {
 				System.out.println(str2);
-				if (str1.compareTo(str3) < 0) {
+				if(str1.compareTo(str3) < 0) {
 					System.out.println(str1);
 					System.out.println(str3);
-				} else {
+				}else {
 					System.out.println(str3);
 					System.out.println(str1);
 				}
-			} else {
+			}else {
 				System.out.println(str3);
 				System.out.println(str2);
 				System.out.println(str1);

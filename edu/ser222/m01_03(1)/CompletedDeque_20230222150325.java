@@ -59,9 +59,6 @@ public class CompletedDeque<Item> implements Deque<Item> {
         size = 0;
     }
 
-    /**
-     * @param element
-     */
     public void enqueueFront(Item element) {
         Node<Item> node = new Node<Item>(element);
 

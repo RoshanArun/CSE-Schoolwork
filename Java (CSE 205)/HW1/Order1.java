@@ -24,9 +24,6 @@ public abstract class Order1 {
         unitPrice = price;
     }
 
-    /**
-     * @return String
-     */
     // returns product name
     public String getProductName() {
         return productName;

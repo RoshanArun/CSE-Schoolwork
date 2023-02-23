@@ -113,9 +113,6 @@ public class HomeworkTwo extends JFrame {
 		panel.add(panel3);
 	}
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		HomeworkTwo frame = new HomeworkTwo();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

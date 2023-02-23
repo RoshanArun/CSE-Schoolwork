@@ -30,9 +30,6 @@ public class Example extends JFrame {
 		add(panel);
 	}
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		Example frame = new Example();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

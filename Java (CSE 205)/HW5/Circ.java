@@ -19,9 +19,6 @@ public class Circ extends Shape {
         super(x, y, width, height, color);
     }
 
-    /**
-     * @param g
-     */
     public void draw(Graphics g) {
         g.setColor(g.getColor());
         g.fillOval(getX(), getY(), getWidth(), getWidth());

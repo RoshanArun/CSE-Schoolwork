@@ -6,9 +6,6 @@ public class MyList<E> extends Main2 {
 
 	int size = 0;
 
-	/**
-	 * @param v
-	 */
 	public void insertFirst(E v) {
 		MyNode new_node = new MyNode(v);
 		if (head == null) {

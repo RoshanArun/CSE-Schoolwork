@@ -41,9 +41,6 @@ public class Employee {
 		in.close();
 	}
 
-	/**
-	 * @return String
-	 */
 	public String getName() {
 		return Name;
 	}

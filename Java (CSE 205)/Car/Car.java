@@ -8,9 +8,6 @@ public class Car extends Vehicle implements Handles {
 		h = honk;
 	}
 
-	/**
-	 * @return String
-	 */
 	public String test() {
 		return honk + " ";
 	}

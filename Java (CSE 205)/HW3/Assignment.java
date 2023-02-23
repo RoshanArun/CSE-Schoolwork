@@ -31,9 +31,6 @@ public class Assignment extends JFrame implements ChangeListener {
 		tabs.addChangeListener(this);
 	}
 
-	/**
-	 * @param args
-	 */
 	// displays gui screen
 	public static void main(String[] args) {
 		Assignment one = new Assignment();

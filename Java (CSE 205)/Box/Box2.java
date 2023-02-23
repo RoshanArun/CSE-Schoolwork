@@ -8,9 +8,6 @@ public class Box2 extends Box {
 		two = t;
 	}
 
-	/**
-	 * @return int
-	 */
 	public int calcVolume() {
 		return length * width * height * two;
 	}

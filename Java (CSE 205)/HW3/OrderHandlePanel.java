@@ -78,9 +78,6 @@ public class OrderHandlePanel extends JPanel implements ActionListener {
 		}
 	}
 
-	/**
-	 * @param e
-	 */
 	public void actionPerformed(ActionEvent e) {
 
 	}

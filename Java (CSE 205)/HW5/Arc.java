@@ -18,9 +18,6 @@ public class Arc extends Shape {
         super(x, y, width, height, color);
     }
 
-    /**
-     * @param g
-     */
     public void draw(Graphics g) {
         double anglelnRadians = Math.atan2(-getY(), getX());
         double length = Math.toDegrees(anglelnRadians);

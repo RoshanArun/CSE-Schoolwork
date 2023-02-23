@@ -76,9 +76,6 @@ public class Main extends JFrame implements ActionListener {
 
 	}
 
-	/**
-	 * @param e
-	 */
 	// based on user choices, certain acttions will be performed
 	public void actionPerformed(ActionEvent e) {
 		System.out.println(e.getActionCommand());

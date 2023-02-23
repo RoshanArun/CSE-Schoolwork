@@ -40,9 +40,6 @@ public class ShippedOrder extends Order1 {
 		totalCost = totalCost + shippingFee;
 	}
 
-	/**
-	 * @return String
-	 */
 	// tostring method
 	public String toString() {
 		return "\n***Shipped Order" + "\nProduct Name: " + productName + "\nQuantity: " + quantity + "\nUnit Price: "

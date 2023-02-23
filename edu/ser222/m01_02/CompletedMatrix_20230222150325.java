@@ -36,11 +36,6 @@ public class CompletedMatrix implements Matrix {
         }
     }
 
-    /**
-     * @param y
-     * @param x
-     * @return int
-     */
     @Override
     public int getElement(int y, int x) {
         return newMatrix[y][x];

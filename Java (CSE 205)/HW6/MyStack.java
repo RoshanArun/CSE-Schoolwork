@@ -9,9 +9,6 @@ public class MyStack<E> extends Main2 {
 		top = null;
 	}
 
-	/**
-	 * @param data
-	 */
 	public void push(E data) {
 		MyNode temp = new MyNode(data);
 		temp.setLink(top);

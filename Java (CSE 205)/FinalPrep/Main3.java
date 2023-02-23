@@ -3,10 +3,6 @@ package FinalPrep;
 import javax.swing.*;
 
 class main3 {
-
-    /**
-     * @param args[]
-     */
     public static void main(String args[]) {
         JFrame frame = new JFrame("My First GUI");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -6,9 +6,6 @@ public class Lab7 {
 		name = nam;
 	}
 
-	/**
-	 * @return String
-	 */
 	public String getName() {
 		return name;
 	}

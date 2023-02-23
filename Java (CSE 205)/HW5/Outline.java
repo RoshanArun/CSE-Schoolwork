@@ -8,9 +8,6 @@ public class Outline extends Shape {
 		super(x, y, width, height, color);
 	}
 
-	/**
-	 * @param g
-	 */
 	public void draw(Graphics g) {
 		g.drawRect(getX(), getY(), getWidth(), getHeight());
 	}

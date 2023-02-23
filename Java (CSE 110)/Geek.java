@@ -7,9 +7,6 @@ public class Geek {
 		numberOfQuestions = 0;
 	}
 
-	/**
-	 * @return String
-	 */
 	public String getName() {
 		numberOfQuestions = numberOfQuestions + 1;
 		return nam;

@@ -76,9 +76,6 @@ public class Prep extends JFrame implements ActionListener {
 		one.add(text2);
 	}
 
-	/**
-	 * @param yes
-	 */
 	public void actionPerformed(ActionEvent yes) {
 		text2.setText(text2.getText() + "HIII");
 	}

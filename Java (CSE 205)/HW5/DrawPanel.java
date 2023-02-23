@@ -28,9 +28,6 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
 		addMouseMotionListener(this);
 	}
 
-	/**
-	 * @param g
-	 */
 	// paints the components
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
