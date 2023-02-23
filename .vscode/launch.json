@@ -3,6 +3,27 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Launch CheckersDriver",
+      "request": "launch",
+      "mainClass": "edu.ser216.checkers.core.CheckersDriver",
+      "projectName": "CSE-Schoolwork_ad172680"
+    },
+    {
+      "type": "java",
+      "name": "Launch Test",
+      "request": "launch",
+      "mainClass": "Test",
+      "projectName": "CSE-Schoolwork_ad172680"
+    },
+    {
+      "type": "java",
+      "name": "Launch CompletedDeque",
+      "request": "launch",
+      "mainClass": "CompletedDeque",
+      "projectName": "CSE-Schoolwork_ad172680"
+    },
+    {
+      "type": "java",
       "name": "Launch Driver",
       "request": "launch",
       "mainClass": "edu.ser222.m01_03.Driver",
