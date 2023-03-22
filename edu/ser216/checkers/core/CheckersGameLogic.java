@@ -64,8 +64,6 @@ public class CheckersGameLogic implements CheckersGame {
         int endRow = charToInt2(number2);
         int endCol = charToInt(letter2);
 
-        System.out.println(startRow);
-
         char startContent = getSquare(startRow, startCol);
 
         // checks to see if the move to be made is valid or not

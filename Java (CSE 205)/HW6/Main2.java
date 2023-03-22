@@ -1,18 +1,16 @@
-// package HW6;
+package HW6;
 
 // import Student.Student;
 
-<<<<<<< HEAD
 // public class Main2<E> {
 
 // /**
 // * @param args[]
 // */
 // @SuppressWarnings("unchecked")
-=======
+
 public class Main2<E> {
-	@SuppressWarnings("unchecked")
->>>>>>> parent of 8d66cdb (CSE Update)
+}
 
 // public static void main(String args[]) {
 // MyList test = new MyList();
