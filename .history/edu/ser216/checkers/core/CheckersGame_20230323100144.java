@@ -67,5 +67,4 @@ public interface CheckersGame {
      * winner.
      */
     public void onEnd();
-
 }

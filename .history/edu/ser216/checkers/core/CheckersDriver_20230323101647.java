@@ -33,7 +33,6 @@ public class CheckersDriver {
         if (one == 0) {
             System.out.println(
                     "Begin Game. Enter P if you want to play against another player; enter C to play against computer.");
-            one++;
             player = scan.nextLine();
         }
 
@@ -42,16 +41,18 @@ public class CheckersDriver {
                 System.out.println(console.printBoard(gameP));
                 gameP.doTurn();
                 gameP.nextTurn();
+                one++;
             }
             gameP.onEnd();
-
-        } else if (player.equals("C")) {
-            while (gameC.getWinningPlayer() == '_') {
-                System.out.println(console.printBoard(gameC));
-                gameC.doTurn();
-                gameC.nextTurn();
+        } else if (player == "C") {
+            while (gameP.getWinningPlayer() == '_') {
+                System.out.println(console.printBoard(gameP));
+                gameP.doTurn();
+                gameP.nextTurn();
+                one++;
             }
-            gameC.onEnd();
+            gameP.onEnd();
         }
+
     }
 }

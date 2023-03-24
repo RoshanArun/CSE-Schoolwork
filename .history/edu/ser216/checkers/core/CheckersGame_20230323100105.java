@@ -68,4 +68,5 @@ public interface CheckersGame {
      */
     public void onEnd();
 
+    public void doCompTurn();
 }

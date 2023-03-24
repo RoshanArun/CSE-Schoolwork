@@ -45,7 +45,7 @@ public class CheckersDriver {
             }
             gameP.onEnd();
 
-        } else if (player.equals("C")) {
+        } else if (player == "C") {
             while (gameC.getWinningPlayer() == '_') {
                 System.out.println(console.printBoard(gameC));
                 gameC.doTurn();
