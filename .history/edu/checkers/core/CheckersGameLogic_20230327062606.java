@@ -1,14 +1,14 @@
-package ser216.checkers.core;
+package checkers.core;
 
 import java.util.Scanner;
 
-public class CheckersComputerPlayer implements CheckersGame {
+public class CheckersGameLogic implements CheckersGame {
     private int turn = 0;
     private char[][] board;
     private Scanner scan;
 
     // implements and creates basic checkers board using a 2d array and x/o tokens
-    public CheckersComputerPlayer(Scanner scan) {
+    public CheckersGameLogic(Scanner scan) {
         this.scan = scan;
         board = new char[8][8];
 
@@ -31,119 +31,54 @@ public class CheckersComputerPlayer implements CheckersGame {
      * @param column
      * @return char
      */
+    @Override
+    // returns the value of a certain box of the checkers board
+    public char getSquare(int row, int column) {
+        return board[row][column];
+    }
+
+    @Override
+    // sets the value of a certain box of the checkers board
+    public void setSquare(int row, int column, char content) {
+        board[row][column] = content;
+    }
 
     @Override
     public void doTurn() {
+
         // Prompts user for input
-        if (turn % 2 == 0) {
-            String input = scan.nextLine();
+        String input = scan.nextLine();
 
-            if (input.length() != 5) {
-                System.out.println("This move is invalid");
-                doTurn();
-            }
-
-            char number = input.charAt(0);
-            char letter = input.charAt(1);
-            char number2 = input.charAt(3);
-            char letter2 = input.charAt(4);
-
-            int startRow = charToInt2(number);
-            int startCol = charToInt(letter);
-            int endRow = charToInt2(number2);
-            int endCol = charToInt(letter2);
-
-            char startContent = getSquare(startRow, startCol);
-
-            if (isValidMove(startRow, startCol, endRow, endCol)) {
-
-                setSquare(startRow, startCol, '_');
-                setSquare(endRow, endCol, startContent);
-                turn++;
-            } else {
-                System.out.println("This move is invalid");
-                doTurn();
-            }
+        if (input.length() != 5) {
+            System.out.println("This move is invalid");
+            doTurn();
         }
-        int one = 0;
-        if (turn % 2 == 1) {
-            OUTER_LOOP: for (int row = 0; row < 8; row++) {
-                for (int column = 0; column < 8; column++) {
-                    char currentSquare = getSquare(row, column);
-                    // if square isn't empty
-                    if (currentSquare != '_') {
-                        if (isValidMove(row, column, row - 1, column - 1)) {
-                            setSquare(row, column, '_');
-                            setSquare(row - 1, column - 1, 'o');
-                            System.out.println("works");
-                            one++;
-                            break OUTER_LOOP;
-                        }
-                        if (isValidMove(row, column, row - 1, column + 1)) {
-                            setSquare(row, column, '_');
-                            setSquare(row - 1, column + 1, 'o');
-                            System.out.println("works");
-                            one++;
-                            break OUTER_LOOP;
-                        }
 
-                    }
-                }
-            }
+        char number = input.charAt(0);
+        char letter = input.charAt(1);
+        char number2 = input.charAt(3);
+        char letter2 = input.charAt(4);
+
+        int startRow = charToInt2(number);
+        int startCol = charToInt(letter);
+        int endRow = charToInt2(number2);
+        int endCol = charToInt(letter2);
+
+        char startContent = getSquare(startRow, startCol);
+
+        // checks to see if the move to be made is valid or not
+        if (isValidMove(startRow, startCol, endRow, endCol)) {
+
+            setSquare(startRow, startCol, '_');
+            setSquare(endRow, endCol, startContent);
             turn++;
-        }
-    }
-
-    @Override
-    // checks to see if there is a winning player
-    public char getWinningPlayer() {
-        int xPieces = 0;
-        int oPieces = 0;
-        int xMoves = 0;
-        int oMoves = 0;
-        // check all squares
-        for (int row = 0; row < 8; row++) {
-            for (int column = 0; column < 8; column++) {
-                char currentSquare = getSquare(row, column);
-                // if square isn't empty
-                if (currentSquare != '_') {
-                    // check if it can make any moves
-                    if (isValidMove(row, column, row + 1, column + 1) ||
-                            isValidMove(row, column, row + 1, column - 1)) {
-                        // if so set moves to true
-                        if (currentSquare == 'x') {
-                            xMoves++;
-                        }
-                    }
-
-                    if (isValidMove(row, column, row + 1, column + 1) ||
-                            isValidMove(row, column, row + 1, column - 1)) {
-                        oMoves++;
-
-                    }
-
-                    // count pieces
-                    if (currentSquare == 'x') {
-                        xPieces++;
-                    } else {
-                        oPieces++;
-                    }
-                }
-
-            }
-        }
-
-        // if either player has no pieces or no moves they lose
-        if (xPieces == 0 || xMoves == xPieces) {
-            return 'o';
-        } else if (oPieces == 0 || oMoves == oPieces) {
-            return 'x';
         } else {
-            return '_';
+            System.out.println("This move is invalid");
+            doTurn();
         }
+
     }
 
-    // checks to see if a valid move can be made
     private boolean isValidMove(int startRow, int startCol, int endRow, int endCol) {
 
         if (endRow < 0 || endRow > 7 || endCol < 0 || endCol > 7) {
@@ -221,15 +156,51 @@ public class CheckersComputerPlayer implements CheckersGame {
     }
 
     @Override
-    // returns the value of a certain box of the checkers board
-    public char getSquare(int row, int column) {
-        return board[row][column];
-    }
+    public char getWinningPlayer() {
+        int xPieces = 0;
+        int oPieces = 0;
+        int xMoves = 0;
+        int oMoves = 0;
+        // check all squares
+        for (int row = 0; row < 8; row++) {
+            for (int column = 0; column < 8; column++) {
+                char currentSquare = getSquare(row, column);
+                // if square isn't empty
+                if (currentSquare != '_') {
+                    // check if it can make any moves
+                    if (isValidMove(row, column, row + 1, column + 1) ||
+                            isValidMove(row, column, row + 1, column - 1)) {
+                        // if so set moves to true
+                        if (currentSquare == 'x') {
+                            xMoves++;
+                        }
+                    }
 
-    @Override
-    // sets the value of a certain box of the checkers board
-    public void setSquare(int row, int column, char content) {
-        board[row][column] = content;
+                    if (isValidMove(row, column, row + 1, column + 1) ||
+                            isValidMove(row, column, row + 1, column - 1)) {
+                        oMoves++;
+
+                    }
+
+                    // count pieces
+                    if (currentSquare == 'x') {
+                        xPieces++;
+                    } else {
+                        oPieces++;
+                    }
+                }
+
+            }
+        }
+
+        // if either player has no pieces or no moves they lose
+        if (xPieces == 0 || xMoves == xPieces) {
+            return 'o';
+        } else if (oPieces == 0 || oMoves == oPieces) {
+            return 'x';
+        } else {
+            return '_';
+        }
     }
 
     @Override

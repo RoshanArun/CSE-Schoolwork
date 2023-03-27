@@ -1,4 +1,4 @@
-package ser216.checkers.core;
+package checkers.core;
 
 /**
  * An interface that abstractly defines a checkers game board with logic.

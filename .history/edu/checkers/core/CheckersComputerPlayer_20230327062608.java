@@ -1,4 +1,4 @@
-package ser216.checkers.core;
+package checkers.core;
 
 import java.util.Scanner;
 

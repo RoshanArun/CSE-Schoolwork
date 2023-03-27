@@ -1,4 +1,4 @@
-package ser216.checkers.ui;
+package edu.ser216.checkers.ui;
 
 import edu.ser216.checkers.core.CheckersGame;
 

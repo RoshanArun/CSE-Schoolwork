@@ -1,4 +1,4 @@
-package ser216.checkers.core;
+package checkers.core;
 
 import edu.ser216.checkers.ui.CheckersTextConsole;
 import edu.ser216.checkers.ui.CheckersViewer;
