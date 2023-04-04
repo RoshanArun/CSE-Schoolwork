@@ -292,17 +292,17 @@ public class CompletedBST<Key extends Comparable<Key>, Value> implements BST<Key
 
     @Override
     public Value getFast(Key key) {
-        Node<Key, Value> one = root;
+        Node<Key, Value> iter = root;
 
-        while (one != null) {
-            int cmp = key.compareTo(one.key);
+        while (iter != null) {
+            int cmp = key.compareTo(iter.key);
 
             if (cmp < 0)
-                one = one.left;
+                iter = iter.left;
             else if (cmp > 0)
-                one = one.right;
+                iter = iter.right;
             else
-                return one.val;
+                return iter.val;
         }
 
         return null;
@@ -310,7 +310,7 @@ public class CompletedBST<Key extends Comparable<Key>, Value> implements BST<Key
 
     @Override
     public void putFast(Key key, Value val) {
-        Node<Key, Value> one = root;
+        Node<Key, Value> iter = root;
 
         Node<Key, Value> newNode = new Node<>(key, val, 1);
 
@@ -320,24 +320,24 @@ public class CompletedBST<Key extends Comparable<Key>, Value> implements BST<Key
         }
 
         while (true) {
-            int cmp = key.compareTo(one.key);
+            int cmp = key.compareTo(iter.key);
 
             if (cmp < 0) {
-                if (one.left != null)
-                    one = one.left;
+                if (iter.left != null)
+                    iter = iter.left;
                 else {
-                    one.left = newNode;
+                    iter.left = newNode;
                     break;
                 }
             } else if (cmp > 0) {
-                if (one.right != null)
-                    one = one.right;
+                if (iter.right != null)
+                    iter = iter.right;
                 else {
-                    one.right = newNode;
+                    iter.right = newNode;
                     break;
                 }
             } else {
-                one.val = val;
+                iter.val = val;
                 break;
             }
         }

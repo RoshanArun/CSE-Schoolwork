@@ -249,33 +249,38 @@ public class CompletedBST<Key extends Comparable<Key>, Value> implements BST<Key
 
     @Override
     public boolean contains(Key key) {
-        return get(key) != null;
+        Node<Key, Value> iter = root;
+
+        while (iter != null) {
+            int cmp = key.compareTo(iter.key);
+
+            if (cmp < 0)
+                iter = iter.left;
+            else if (cmp > 0)
+                iter = iter.right;
+            else
+                return true;
+        }
+
+        return false;
     }
 
     @Override
     public boolean isEmpty() {
-        if (size() == 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return root == null;
     }
 
     @Override
     public void deleteMax() {
-        if (isEmpty()) {
-            throw new NoSuchElementException("The ST is empty!");
-        }
-
+        if (root == null)
+            throw new NoSuchElementException();
         root = deleteMax(root);
     }
 
-    private Node deleteMax(Node x) {
+    private Node<Key, Value> deleteMax(Node x) {
         if (x.right == null)
             return x.left;
-
         x.right = deleteMax(x.right);
-
         x.N = size(x.left) + size(x.right) + 1;
         return x;
     }
@@ -291,145 +296,99 @@ public class CompletedBST<Key extends Comparable<Key>, Value> implements BST<Key
     }
 
     @Override
-    public Value getFast(Key key) {
-        Node<Key, Value> one = root;
+    public void putFast(Key key, Value val) {
+        if (root == null)
+            root = put(root, key, val);
+        else {
+            Node<Key, Value> iter = root;
+            while (iter != null) {
+                int cmp = key.compareTo(iter.key);
 
-        while (one != null) {
-            int cmp = key.compareTo(one.key);
+                if (cmp < 0) {
+                    if (iter.left == null) {
+                        iter.left = put(iter.left, key, val);
+                        break;
+                    } else
+                        iter = iter.left;
+                } else if (cmp > 0) {
+                    if (iter.right == null) {
+                        iter.right = put(iter.right, key, val);
+                        break;
+                    } else
+                        iter = iter.right;
+                } else
+                    iter.val = val;
+            }
+        }
+    }
+
+    public Value getFast(Key key) {
+        // TODO
+        // I think this is the same as the normal get() method?
+        Node<Key, Value> iter = root;
+
+        while (iter != null) {
+            int cmp = key.compareTo(iter.key);
 
             if (cmp < 0)
-                one = one.left;
+                iter = iter.left;
             else if (cmp > 0)
-                one = one.right;
+                iter = iter.right;
             else
-                return one.val;
+                return iter.val;
         }
 
         return null;
     }
 
-    @Override
-    public void putFast(Key key, Value val) {
-        Node<Key, Value> one = root;
-
-        Node<Key, Value> newNode = new Node<>(key, val, 1);
-
-        if (root == null) {
-            root = newNode;
-            return;
-        }
-
-        while (true) {
-            int cmp = key.compareTo(one.key);
-
-            if (cmp < 0) {
-                if (one.left != null)
-                    one = one.left;
-                else {
-                    one.left = newNode;
-                    break;
-                }
-            } else if (cmp > 0) {
-                if (one.right != null)
-                    one = one.right;
-                else {
-                    one.right = newNode;
-                    break;
-                }
-            } else {
-                one.val = val;
-                break;
-            }
-        }
-    }
-
     public void balance() {
-        LinkedList<Node> nodes = new LinkedList<Node>();
-        sortNodes(nodes, root);
-        root = balanceTree(nodes, 0, size() - 1);
-
-        // Update the node sizes
-        updateNodeSizes(root);
+        LinkedList<Node<Key, Value>> list = new LinkedList<>();
+        inorder(list, root);
+        root = sortedArrayToBST(list, 0, list.size() - 1);
     }
 
-    private void sortNodes(LinkedList<Node> nodes, Node n) {
-        if (n == null) {
-            return;
-        }
-
-        sortNodes(nodes, n.left);
-        nodes.add(n);
-
-        sortNodes(nodes, n.right);
-    }
-
-    private Node balanceTree(LinkedList<Node> nodes, int start, int end) {
-        if (start > end) {
+    private Node<Key, Value> sortedArrayToBST(LinkedList<Node<Key, Value>> list, int start, int end) {
+        if (start > end)
             return null;
-        }
-
-        int middle = (start + end) / 2;
-
-        if ((start + end) % 2 == 1) {
-            middle++;
-        }
-
-        Node middleNode = nodes.get(middle);
-        middleNode.left = balanceTree(nodes, start, middle - 1);
-        middleNode.right = balanceTree(nodes, middle + 1, end);
-
-        // Update the size of the current node
-        middleNode.N = 1 + size(middleNode.left) + size(middleNode.right);
-
-        return middleNode;
+        int mid = (start + end) / 2;
+        Node<Key, Value> node = list.get(mid);
+        node.left = sortedArrayToBST(list, start, mid - 1);
+        node.right = sortedArrayToBST(list, mid + 1, end);
+        return node;
     }
 
-    private void updateNodeSizes(Node n) {
-        if (n == null) {
+    private void inorder(LinkedList<Node<Key, Value>> list, Node<Key, Value> node) {
+        if (node == null)
             return;
-        }
-
-        updateNodeSizes(n.left);
-        n.N = 1 + size(n.left) + size(n.right);
-        updateNodeSizes(n.right);
+        inorder(list, node.left);
+        list.add(node);
+        inorder(list, node.right);
     }
 
     public String displayLevel(Key key) {
+        Node<Key, Value> x = root;
         StringBuilder sb = new StringBuilder();
-        Node<Key, Value> node = getNode(root, key);
+        Queue<Node<Key, Value>> q = new LinkedList<>();
+        q.add(x);
 
-        if (node == null)
-            return "empty";
-
-        Queue<Node<Key, Value>> queue = new LinkedList<>();
-        queue.add(node);
-
-        while (!queue.isEmpty()) {
-            Node<Key, Value> current = queue.remove();
-
-            if (current.left != null)
-                queue.add(current.left);
-            if (current.right != null)
-                queue.add(current.right);
-
-            sb.append(current.val);
-            sb.append(" ");
+        while (!q.isEmpty()) {
+            x = q.remove();
+            if (x.key == key) {
+                sb.append(x.key);
+                sb.append(" ");
+            }
+            if (x.left != null) {
+                sb.append(x.left.key);
+                sb.append(" ");
+                q.add(x.left);
+            }
+            if (x.right != null) {
+                sb.append(x.right.key);
+                sb.append(" ");
+                q.add(x.right);
+            }
         }
-
         return sb.toString();
-    }
-
-    private Node<Key, Value> getNode(Node<Key, Value> node, Key key) {
-        if (node == null)
-            return null;
-
-        int cmp = key.compareTo(node.key);
-        if (cmp == 0)
-            return node;
-        else if (cmp < 0)
-            return getNode(node.left, key);
-        else
-            return getNode(node.right, key);
     }
 
     /**

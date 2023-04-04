@@ -247,189 +247,41 @@ public class CompletedBST<Key extends Comparable<Key>, Value> implements BST<Key
         return root;
     }
 
-    @Override
     public boolean contains(Key key) {
-        return get(key) != null;
+        // TODO
+        return false;
     }
 
-    @Override
     public boolean isEmpty() {
-        if (size() == 0) {
-            return true;
-        } else {
-            return false;
-        }
+        // TODO
+        return false;
     }
 
-    @Override
     public void deleteMax() {
-        if (isEmpty()) {
-            throw new NoSuchElementException("The ST is empty!");
-        }
-
-        root = deleteMax(root);
+        // TODO
     }
 
-    private Node deleteMax(Node x) {
-        if (x.right == null)
-            return x.left;
-
-        x.right = deleteMax(x.right);
-
-        x.N = size(x.left) + size(x.right) + 1;
-        return x;
-    }
-
-    @Override
     public int size(Key lo, Key hi) {
-        if (lo.compareTo(hi) > 0)
-            return 0;
-        if (contains(hi))
-            return rank(hi) - rank(lo) + 1;
-        else
-            return rank(hi) - rank(lo);
+        // TODO
+        return 0;
     }
 
-    @Override
+    public void putFast(Key key, Value val) {
+        // TODO
+    }
+
     public Value getFast(Key key) {
-        Node<Key, Value> one = root;
-
-        while (one != null) {
-            int cmp = key.compareTo(one.key);
-
-            if (cmp < 0)
-                one = one.left;
-            else if (cmp > 0)
-                one = one.right;
-            else
-                return one.val;
-        }
-
+        // TODO
         return null;
     }
 
-    @Override
-    public void putFast(Key key, Value val) {
-        Node<Key, Value> one = root;
-
-        Node<Key, Value> newNode = new Node<>(key, val, 1);
-
-        if (root == null) {
-            root = newNode;
-            return;
-        }
-
-        while (true) {
-            int cmp = key.compareTo(one.key);
-
-            if (cmp < 0) {
-                if (one.left != null)
-                    one = one.left;
-                else {
-                    one.left = newNode;
-                    break;
-                }
-            } else if (cmp > 0) {
-                if (one.right != null)
-                    one = one.right;
-                else {
-                    one.right = newNode;
-                    break;
-                }
-            } else {
-                one.val = val;
-                break;
-            }
-        }
-    }
-
     public void balance() {
-        LinkedList<Node> nodes = new LinkedList<Node>();
-        sortNodes(nodes, root);
-        root = balanceTree(nodes, 0, size() - 1);
-
-        // Update the node sizes
-        updateNodeSizes(root);
-    }
-
-    private void sortNodes(LinkedList<Node> nodes, Node n) {
-        if (n == null) {
-            return;
-        }
-
-        sortNodes(nodes, n.left);
-        nodes.add(n);
-
-        sortNodes(nodes, n.right);
-    }
-
-    private Node balanceTree(LinkedList<Node> nodes, int start, int end) {
-        if (start > end) {
-            return null;
-        }
-
-        int middle = (start + end) / 2;
-
-        if ((start + end) % 2 == 1) {
-            middle++;
-        }
-
-        Node middleNode = nodes.get(middle);
-        middleNode.left = balanceTree(nodes, start, middle - 1);
-        middleNode.right = balanceTree(nodes, middle + 1, end);
-
-        // Update the size of the current node
-        middleNode.N = 1 + size(middleNode.left) + size(middleNode.right);
-
-        return middleNode;
-    }
-
-    private void updateNodeSizes(Node n) {
-        if (n == null) {
-            return;
-        }
-
-        updateNodeSizes(n.left);
-        n.N = 1 + size(n.left) + size(n.right);
-        updateNodeSizes(n.right);
+        // TODO
     }
 
     public String displayLevel(Key key) {
-        StringBuilder sb = new StringBuilder();
-        Node<Key, Value> node = getNode(root, key);
-
-        if (node == null)
-            return "empty";
-
-        Queue<Node<Key, Value>> queue = new LinkedList<>();
-        queue.add(node);
-
-        while (!queue.isEmpty()) {
-            Node<Key, Value> current = queue.remove();
-
-            if (current.left != null)
-                queue.add(current.left);
-            if (current.right != null)
-                queue.add(current.right);
-
-            sb.append(current.val);
-            sb.append(" ");
-        }
-
-        return sb.toString();
-    }
-
-    private Node<Key, Value> getNode(Node<Key, Value> node, Key key) {
-        if (node == null)
-            return null;
-
-        int cmp = key.compareTo(node.key);
-        if (cmp == 0)
-            return node;
-        else if (cmp < 0)
-            return getNode(node.left, key);
-        else
-            return getNode(node.right, key);
+        // TODO
+        return "";
     }
 
     /**

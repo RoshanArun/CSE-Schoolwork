@@ -249,33 +249,45 @@ public class CompletedBST<Key extends Comparable<Key>, Value> implements BST<Key
 
     @Override
     public boolean contains(Key key) {
-        return get(key) != null;
+        if (root == null)
+            return false;
+
+        Node<Key, Value> iter = root;
+
+        while (iter != null) {
+            int cmp = key.compareTo(iter.key);
+
+            if (cmp < 0)
+                iter = iter.left;
+            else if (cmp > 0)
+                iter = iter.right;
+            else
+                return true;
+        }
+
+        return false;
     }
 
     @Override
     public boolean isEmpty() {
-        if (size() == 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return root == null;
     }
 
     @Override
     public void deleteMax() {
-        if (isEmpty()) {
-            throw new NoSuchElementException("The ST is empty!");
-        }
+        if (root == null)
+            throw new NoSuchElementException();
 
-        root = deleteMax(root);
+        if (root.right == null)
+            root = root.left;
+        else
+            root.right = deleteMax(root.right);
     }
 
-    private Node deleteMax(Node x) {
+    private Node<Key, Value> deleteMax(Node<Key, Value> x) {
         if (x.right == null)
             return x.left;
-
         x.right = deleteMax(x.right);
-
         x.N = size(x.left) + size(x.right) + 1;
         return x;
     }
@@ -292,17 +304,17 @@ public class CompletedBST<Key extends Comparable<Key>, Value> implements BST<Key
 
     @Override
     public Value getFast(Key key) {
-        Node<Key, Value> one = root;
+        Node<Key, Value> iter = root;
 
-        while (one != null) {
-            int cmp = key.compareTo(one.key);
+        while (iter != null) {
+            int cmp = key.compareTo(iter.key);
 
             if (cmp < 0)
-                one = one.left;
+                iter = iter.left;
             else if (cmp > 0)
-                one = one.right;
+                iter = iter.right;
             else
-                return one.val;
+                return iter.val;
         }
 
         return null;
@@ -310,126 +322,103 @@ public class CompletedBST<Key extends Comparable<Key>, Value> implements BST<Key
 
     @Override
     public void putFast(Key key, Value val) {
-        Node<Key, Value> one = root;
+        Node<Key, Value> iter = root;
+        Node<Key, Value> parent = root;
 
-        Node<Key, Value> newNode = new Node<>(key, val, 1);
+        while (iter != null) {
+            int cmp = key.compareTo(iter.key);
+            parent = iter;
 
-        if (root == null) {
-            root = newNode;
-            return;
+            if (cmp < 0)
+                iter = iter.left;
+            else if (cmp > 0)
+                iter = iter.right;
+            else {
+                iter.val = val;
+                return;
+            }
         }
 
-        while (true) {
-            int cmp = key.compareTo(one.key);
+        if (root == null)
+            root = new Node(key, val, 1);
+        else {
+            int cmp = key.compareTo(parent.key);
 
-            if (cmp < 0) {
-                if (one.left != null)
-                    one = one.left;
-                else {
-                    one.left = newNode;
-                    break;
-                }
-            } else if (cmp > 0) {
-                if (one.right != null)
-                    one = one.right;
-                else {
-                    one.right = newNode;
-                    break;
-                }
-            } else {
-                one.val = val;
-                break;
-            }
+            if (cmp < 0)
+                parent.left = new Node(key, val, 1);
+            else if (cmp > 0)
+                parent.right = new Node(key, val, 1);
         }
     }
 
     public void balance() {
-        LinkedList<Node> nodes = new LinkedList<Node>();
-        sortNodes(nodes, root);
-        root = balanceTree(nodes, 0, size() - 1);
-
-        // Update the node sizes
-        updateNodeSizes(root);
-    }
-
-    private void sortNodes(LinkedList<Node> nodes, Node n) {
-        if (n == null) {
+        if (root == null) {
             return;
         }
 
-        sortNodes(nodes, n.left);
-        nodes.add(n);
-
-        sortNodes(nodes, n.right);
+        LinkedList<Node<Key, Value>> list = new LinkedList<>();
+        inOrderTraversal(root, list);
+        root = createBalancedBST(list, 0, list.size() - 1);
     }
 
-    private Node balanceTree(LinkedList<Node> nodes, int start, int end) {
+    private void inOrderTraversal(Node<Key, Value> node, LinkedList<Node<Key, Value>> list) {
+        if (node == null) {
+            return;
+        }
+
+        inOrderTraversal(node.left, list);
+        list.add(node);
+        inOrderTraversal(node.right, list);
+    }
+
+    private Node<Key, Value> createBalancedBST(LinkedList<Node<Key, Value>> list, int start, int end) {
         if (start > end) {
             return null;
         }
 
-        int middle = (start + end) / 2;
+        int mid = (start + end) / 2;
+        Node<Key, Value> node = list.get(mid);
+        node.left = createBalancedBST(list, start, mid - 1);
+        node.right = createBalancedBST(list, mid + 1, end);
 
-        if ((start + end) % 2 == 1) {
-            middle++;
-        }
-
-        Node middleNode = nodes.get(middle);
-        middleNode.left = balanceTree(nodes, start, middle - 1);
-        middleNode.right = balanceTree(nodes, middle + 1, end);
-
-        // Update the size of the current node
-        middleNode.N = 1 + size(middleNode.left) + size(middleNode.right);
-
-        return middleNode;
-    }
-
-    private void updateNodeSizes(Node n) {
-        if (n == null) {
-            return;
-        }
-
-        updateNodeSizes(n.left);
-        n.N = 1 + size(n.left) + size(n.right);
-        updateNodeSizes(n.right);
+        return node;
     }
 
     public String displayLevel(Key key) {
-        StringBuilder sb = new StringBuilder();
-        Node<Key, Value> node = getNode(root, key);
-
-        if (node == null)
-            return "empty";
-
-        Queue<Node<Key, Value>> queue = new LinkedList<>();
-        queue.add(node);
-
-        while (!queue.isEmpty()) {
-            Node<Key, Value> current = queue.remove();
-
-            if (current.left != null)
-                queue.add(current.left);
-            if (current.right != null)
-                queue.add(current.right);
-
-            sb.append(current.val);
-            sb.append(" ");
+        Node<Key, Value> x = root;
+        while (x != null) {
+            int cmp = key.compareTo(x.key);
+            if (cmp == 0) {
+                int level = height(x);
+                return display(x, level);
+            } else if (cmp < 0) {
+                x = x.left;
+            } else {
+                x = x.right;
+            }
         }
-
-        return sb.toString();
+        return null;
     }
 
-    private Node<Key, Value> getNode(Node<Key, Value> node, Key key) {
-        if (node == null)
-            return null;
+    private int height(Node<Key, Value> x) {
+        if (x == null) {
+            return 0;
+        }
+        int leftHeight = height(x.left);
+        int rightHeight = height(x.right);
+        return Math.max(leftHeight, rightHeight) + 1;
+    }
 
-        int cmp = key.compareTo(node.key);
-        if (cmp == 0)
-            return node;
-        else if (cmp < 0)
-            return getNode(node.left, key);
-        else
-            return getNode(node.right, key);
+    private String display(Node<Key, Value> x, int level) {
+        if (x == null) {
+            return "";
+        }
+        if (level == 1) {
+            return x.key + " ";
+        }
+        String leftStr = display(x.left, level - 1);
+        String rightStr = display(x.right, level - 1);
+        return leftStr + rightStr;
     }
 
     /**

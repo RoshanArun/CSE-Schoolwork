@@ -292,17 +292,17 @@ public class CompletedBST<Key extends Comparable<Key>, Value> implements BST<Key
 
     @Override
     public Value getFast(Key key) {
-        Node<Key, Value> one = root;
+        Node<Key, Value> iter = root;
 
-        while (one != null) {
-            int cmp = key.compareTo(one.key);
+        while (iter != null) {
+            int cmp = key.compareTo(iter.key);
 
             if (cmp < 0)
-                one = one.left;
+                iter = iter.left;
             else if (cmp > 0)
-                one = one.right;
+                iter = iter.right;
             else
-                return one.val;
+                return iter.val;
         }
 
         return null;
@@ -310,7 +310,7 @@ public class CompletedBST<Key extends Comparable<Key>, Value> implements BST<Key
 
     @Override
     public void putFast(Key key, Value val) {
-        Node<Key, Value> one = root;
+        Node<Key, Value> iter = root;
 
         Node<Key, Value> newNode = new Node<>(key, val, 1);
 
@@ -320,78 +320,70 @@ public class CompletedBST<Key extends Comparable<Key>, Value> implements BST<Key
         }
 
         while (true) {
-            int cmp = key.compareTo(one.key);
+            int cmp = key.compareTo(iter.key);
 
             if (cmp < 0) {
-                if (one.left != null)
-                    one = one.left;
+                if (iter.left != null)
+                    iter = iter.left;
                 else {
-                    one.left = newNode;
+                    iter.left = newNode;
                     break;
                 }
             } else if (cmp > 0) {
-                if (one.right != null)
-                    one = one.right;
+                if (iter.right != null)
+                    iter = iter.right;
                 else {
-                    one.right = newNode;
+                    iter.right = newNode;
                     break;
                 }
             } else {
-                one.val = val;
+                iter.val = val;
                 break;
             }
         }
     }
 
     public void balance() {
-        LinkedList<Node> nodes = new LinkedList<Node>();
-        sortNodes(nodes, root);
-        root = balanceTree(nodes, 0, size() - 1);
-
-        // Update the node sizes
-        updateNodeSizes(root);
+        root = balance(root);
     }
 
-    private void sortNodes(LinkedList<Node> nodes, Node n) {
-        if (n == null) {
-            return;
-        }
-
-        sortNodes(nodes, n.left);
-        nodes.add(n);
-
-        sortNodes(nodes, n.right);
-    }
-
-    private Node balanceTree(LinkedList<Node> nodes, int start, int end) {
-        if (start > end) {
+    private Node<Key, Value> balance(Node<Key, Value> node) {
+        if (node == null)
             return null;
-        }
 
-        int middle = (start + end) / 2;
+        if (node.left == null && node.right == null)
+            return node;
 
-        if ((start + end) % 2 == 1) {
-            middle++;
-        }
+        int leftSize = (node.left != null) ? node.left.N : 0;
+        int rightSize = (node.right != null) ? node.right.N : 0;
 
-        Node middleNode = nodes.get(middle);
-        middleNode.left = balanceTree(nodes, start, middle - 1);
-        middleNode.right = balanceTree(nodes, middle + 1, end);
+        if (leftSize > rightSize + 1)
+            node.left = rotateRight(node.left);
 
-        // Update the size of the current node
-        middleNode.N = 1 + size(middleNode.left) + size(middleNode.right);
+        if (rightSize > leftSize + 1)
+            node.right = rotateLeft(node.right);
 
-        return middleNode;
+        node.N = size(node.left) + size(node.right) + 1;
+
+        return node;
     }
 
-    private void updateNodeSizes(Node n) {
-        if (n == null) {
-            return;
-        }
+    private Node<Key, Value> rotateRight(Node<Key, Value> parent) {
+        Node<Key, Value> child = parent.left;
+        parent.left = child.right;
+        child.right = parent;
+        parent.N = size(parent.left) + size(parent.right) + 1;
+        child.N = size(child.left) + size(child.right) + 1;
+        return child;
+    }
 
-        updateNodeSizes(n.left);
-        n.N = 1 + size(n.left) + size(n.right);
-        updateNodeSizes(n.right);
+    private Node<Key, Value> rotateLeft(Node<Key, Value> parent) {
+        Node<Key, Value> child = parent.right;
+        parent.right = child.left;
+        child.left = parent;
+        parent.N = size(parent.left) + size(parent.right) + 1;
+        child.N = size(child.left) + size(child.right) + 1;
+        return child;
     }
 
     public String displayLevel(Key key) {
