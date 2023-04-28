@@ -1,4 +1,3 @@
-package test;
 
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
