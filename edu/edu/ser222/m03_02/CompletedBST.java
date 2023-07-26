@@ -45,15 +45,41 @@ public class CompletedBST<Key extends Comparable<Key>, Value> implements BST<Key
 
         return null;
     }
-    
-    
+
+    private Value get(Node<Key, Value> x, Key key) {
+        // Return value associated with key in the subtree rooted at x;
+        // return null if key not present in subtree rooted at x.
+        if (x == null)
+            return null;
+        int cmp = key.compareTo(x.key);
+        if (cmp < 0)
+            return get(x.left, key);
+        else if (cmp > 0)
+            return get(x.right, key);
+        else
+            return x.val;
+    }
 
     @Override
     public void put(Key key, Value val) {
         root = put(root, key, val);
     }
 
-    
+    private Node put(Node<Key, Value> x, Key key, Value val) {
+        if (x == null)
+            return new Node(key, val, 1);
+
+        int cmp = key.compareTo(x.key);
+        if (cmp < 0)
+            x.left = put(x.left, key, val);
+        else if (cmp > 0)
+            x.right = put(x.right, key, val);
+        else
+            x.val = val;
+        x.N = size(x.left) + size(x.right) + 1;
+
+        return x;
+    }
 
     @Override
     public Key min() {
@@ -144,13 +170,17 @@ public class CompletedBST<Key extends Comparable<Key>, Value> implements BST<Key
 
     @Override
     public void deleteMin() {
-        if (root == null) throw new NoSuchElementException();
-        root = deleteMin(root);}
+        if (root == null)
+            throw new NoSuchElementException();
+        root = deleteMin(root);
+    }
+
     private Node<Key, Value> deleteMin(Node x) {
-        //If left node is null,return right node
-        if (x.left == null) return x.right;
-        x.left = deleteMin(x.left); //set left node to result 
-        x.N = size(x.left) + size(x.right) + 1; return x;
+        if (x.left == null)
+            return x.right;
+        x.left = deleteMin(x.left);
+        x.N = size(x.left) + size(x.right) + 1;
+        return x;
     }
 
     @Override
@@ -158,46 +188,26 @@ public class CompletedBST<Key extends Comparable<Key>, Value> implements BST<Key
         root = delete(root, key);
     }
 
-    private Node put(Node<Key, Value> x, Key key, Value val) {
-    if (x == null) return new Node(key, val, 1);
-    int cmp = key.compareTo(x.key);
-    if (cmp < 0) x.left = put(x.left, key, val);
-    else if (cmp > 0) x.right = put(x.right, key, val);
-        else x.val = val; x.N = size(x.left) + size(x.right) + 1;
-        return x;
-    }
-
-    //Sequencial search(unordered LL, S:N/2, I:N, order supp)
-    //Binary search(Ordered Array, S:lgN, I:N, no) (N!, 2^n, n, logN ,1)
-    //avg case (domain of keys is random inserted), BST - 1.39lgN(yes)
-    //InOrder: IO(root.left), visit root, IO(root.right) (LTR), BT-2 Children
-    //Preorder: visit root, PO(root.left), PO(root.right) (<) Worst case:Stilted
-    //Post Order: PO(root.left), PO(root.right), visit root (>) BC: balanced
-    private Value get(Node<Key, Value> x, Key key) { //(Value val)
-    if (x == null) return null; //not found - null, //bst ordered/heap not 
-    int cmp = key.compareTo(x.key); //compares given k to current node k
-    if (cmp < 0) return get(x.left, key); //recursively search left subtree
-    else if (cmp > 0) return get(x.right, key); //^ right subtree
-    else return x.val; //if key equal return node value, key=immut/value=mut
-    //return new Node(key, val, 1); if (cmp < 0) x.left = put(x.left, key, val);
-    //else x.val = val; x.N = size(x.left) + size(x.right) + 1; return x
-    //if equal update x, set size of left/right subtree + 1, return root
-
-        }
-
     private Node<Key, Value> delete(Node<Key, Value> x, Key key) {
-    if (x == null)return null; //nothing to delete
-    int cmp = key.compareTo(x.key); 
-    if (cmp < 0) x.left = delete(x.left, key); //left subtree
-    else if (cmp > 0) x.right = delete(x.right, key); //right subtree
-    else { //symbol table more flexible for adding/deleting records
-        if (x.right == null) return x.left; //return left
-        if (x.left == null) return x.right; //return right
-        Node t = x; //two children, use t as a temp variable
-        x = min(t.right); //sets x to minimum of x's right subtree
-        x.right = deleteMin(t.right); //delete min node from right subtree
-        x.left = t.left; //sets old subtree of x to be a child of successor
-    } x.N = size(x.left) + size(x.right) + 1; return x;
+        if (x == null)
+            return null;
+        int cmp = key.compareTo(x.key);
+        if (cmp < 0)
+            x.left = delete(x.left, key);
+        else if (cmp > 0)
+            x.right = delete(x.right, key);
+        else {
+            if (x.right == null)
+                return x.left;
+            if (x.left == null)
+                return x.right;
+            Node t = x;
+            x = min(t.right);
+            x.right = deleteMin(t.right);
+            x.left = t.left;
+        }
+        x.N = size(x.left) + size(x.right) + 1;
+        return x;
     }
 
     @Override
@@ -214,17 +224,19 @@ public class CompletedBST<Key extends Comparable<Key>, Value> implements BST<Key
         keys(root, queue, lo, hi);
         return queue;
     }
+
     private void keys(Node<Key, Value> x, Queue<Key> queue, Key lo, Key hi) {
-        if (x == null) return; //if node is null return
-    // Get the comparison values of the low/high values against the node's key
+        if (x == null)
+            return;
         int cmplo = lo.compareTo(x.key);
         int cmphi = hi.compareTo(x.key);
-        if (cmplo < 0)   //recursively call method on the node's left child
+        if (cmplo < 0)
             keys(x.left, queue, lo, hi);
         if (cmplo <= 0 && cmphi >= 0)
-            queue.add(x.key); // add the node's key to the queue
-        if (cmphi > 0)// recursively call the method on the node's right child
-            keys(x.right, queue, lo, hi);}
+            queue.add(x.key);
+        if (cmphi > 0)
+            keys(x.right, queue, lo, hi);
+    }
 
     public Key ceiling(Key key) {
         // SKIP, UNNEEDED
@@ -335,49 +347,52 @@ public class CompletedBST<Key extends Comparable<Key>, Value> implements BST<Key
         LinkedList<Node> nodes = new LinkedList<Node>();
         sortNodes(nodes, root);
         root = balanceTree(nodes, 0, size() - 1);
+
         // Update the node sizes
         updateNodeSizes(root);
     }
+
     private void sortNodes(LinkedList<Node> nodes, Node n) {
         if (n == null) {
             return;
         }
+
         sortNodes(nodes, n.left);
         nodes.add(n);
+
         sortNodes(nodes, n.right);
     }
+
     private Node balanceTree(LinkedList<Node> nodes, int start, int end) {
         if (start > end) {
             return null;
         }
+
         int middle = (start + end) / 2;
+
         if ((start + end) % 2 == 1) {
             middle++;
         }
+
         Node middleNode = nodes.get(middle);
         middleNode.left = balanceTree(nodes, start, middle - 1);
         middleNode.right = balanceTree(nodes, middle + 1, end);
+
         // Update the size of the current node
         middleNode.N = 1 + size(middleNode.left) + size(middleNode.right);
+
         return middleNode;
     }
+
     private void updateNodeSizes(Node n) {
         if (n == null) {
             return;
         }
+
         updateNodeSizes(n.left);
         n.N = 1 + size(n.left) + size(n.right);
         updateNodeSizes(n.right);
     }
-
-
-
-
-
-
-
-
-
 
     public String displayLevel(Key key) {
         StringBuilder sb = new StringBuilder();

@@ -18,7 +18,7 @@ public class IntuitiveTopological implements TopologicalSort {
      *
      * @param g graph
      */
-    public IntuitiveTopological(BetterDiGraph g) {
+    public IntuitiveTopologicalSort(BetterDiGraph g) {
         graph = g;
         order = new LinkedList<>();
     }
