@@ -1,4 +1,3 @@
-package HW;
 
 // STUDENT NAME: Roshan arun 
 // FILENAME: HW1.java
