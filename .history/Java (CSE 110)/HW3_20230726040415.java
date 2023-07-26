@@ -1,3 +1,14 @@
+package HW;
+// ------------------------------------------------------------
+// STUDENT NAME: Roshan Arun
+// FILENAME: HW3.java
+// DESCRIPTION: Create a program that takes a user input string and uses string functions to print initials, first, last, and middle names based on input
+// FOR: CSE 110 - Homework #3
+// TIME SPENT: 45 Minutes
+// DATE: 9/28/2021
+//-------------------------------------------------------------
+
+
 
 public class HW3 {
 

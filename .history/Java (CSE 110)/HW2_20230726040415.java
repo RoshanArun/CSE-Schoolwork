@@ -1,3 +1,10 @@
+package HW;
+// STUDENT NAME: Roshan Arun 
+// FILENAME: HW2.java
+// SPECIFICATION: Write a program that asks for 3 user input strings, and returns them in alphabetical order (lexigraphically)
+// FOR: CSE 110- Homework Assignment #2
+// TIME SPENT: 30 minutes
+// DATE: 9/21/2021
 
 import java.util.Scanner;
 
