@@ -1,6 +1,4 @@
-package HW;
 // ------------------------------------------------------------
-
 // STUDENT NAME: Roshan Arun
 // FILENAME: HW4.java
 // DESCRIPTION: Generate math problems for the user using the random method
@@ -16,10 +14,10 @@ public class HW4 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		
 		Scanner scan = new Scanner(System.in);
-		long seed = 1;
-		int problems;
+		long seed = 1; 
+		int problems; 
 		int ans = 1;
 		int right = 0;
 		int issue = 0;
@@ -29,29 +27,29 @@ public class HW4 {
 
 		System.out.print("How many multiplication problems would you like (1 to 10)? ");
 		problems = scan.nextInt();
-
-		for (int i = 1; i <= problems; i++) {
+		
+		for(int i = 1; i <= problems; i++) {
 			int digit1 = rng.nextInt(13) + 1;
 			int digit2 = rng.nextInt(13) + 1;
 			System.out.print("\nProblem " + i + ":" + " what is " + digit1 + " * " + digit2 + "? ");
 			int wrong = 0;
 
-			while (wrong < 3) {
+			while(wrong < 3) {
 				ans = scan.nextInt();
-
+				
 				System.out.println("Your Answer --> " + ans);
-
-				if (ans == digit1 * digit2) {
+				
+				if(ans == digit1 * digit2) {
 					System.out.println(ans + " is correct.");
 					wrong = 3;
 					right = right + 1;
-
-				} else if (ans != digit1 * digit2) {
+					
+				}else if (ans != digit1 * digit2){
 					System.out.println(ans + " is incorrect.");
 					wrong = wrong + 1;
 					issue = issue + 1;
-
-					if (wrong == 3) {
+					
+					if(wrong == 3) {
 						System.out.println("The correct answer is " + digit1 * digit2 + ".");
 					}
 				}
