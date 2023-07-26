@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class CheckersGameLogic implements CheckersGame {
     private int turn = 0;
-    public char[][] board;
+    private char[][] board;
     private Scanner scan;
 
     // implements and creates basic checkers board using a 2d array and x/o tokens
