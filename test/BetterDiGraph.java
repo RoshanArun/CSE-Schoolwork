@@ -15,6 +15,28 @@ public class BetterDiGraph implements EditableDiGraph {
     private int numVertices;
     private int numEdges;
 
+    //vertece - big circles, edges - connections, support self loops/parallel edges
+    //graphs are generic data structures (multiple representations), 
+    //define an ADT to enforce separation of function/implementation
+    //graph representation - adjacency matrices, adjacency lists, and edge lists
+    //Matrix - make a true/false grid, space - worst case needs O(|v|^2) - time complexity
+    //no self loop, supports parallel edges, uses boolean array, removing edge and querying is o(1)
+    //Lists -  where each index corresponds to a list of vertices that are connected to that index, querying-O(V)
+    //uses a linkedList array, space - O(V+2E) worst case: O(V^2). Add edge, both use O(1), add edge is O(E)
+    //(check adjacent matrix: 1, list: degree(V)), (iterate adjacent: matrix: V, list: degree (V))
+    //Edge Lists - list of all connected edges, example would be [1.2] edge list is array, to find something must 
+    //iterate through, could have no sense of order - edge could be at the end, taking linear time
+    //DFS - Starts as some node, mark as visited, recusively visit each neighbor if not marked (Uses stack)
+    //BFS - Starts as some node, mark as visited, add each of its negihbors to a queue if not marked (uses queue)
+    //Continue using the queue to look at nodes in FIFO(first in first out order), DFS uses LIFO (last in first out)
+    //DFS is faster and requires less memroy, best suited for decison trees, better when target if far from source
+    //BFS is better when target is closer to source, time complexity BFS/DFS: O(V+E), BFS needs more space
+    //DFS could be stuck in infite loop Cycle - Path where the first and last nodes are the same
+    //Connected Component - subset of a garph where every pair of verticed are connected by some path
+
+
+
+
     /**
      * Default constructor for BetterDiGraph.
      */
