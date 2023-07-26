@@ -130,4 +130,3 @@ public class ClockPane extends Pane {
         paintClock();
     }
 }
-// test
