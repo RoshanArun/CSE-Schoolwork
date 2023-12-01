@@ -1,0 +1,74 @@
+#include "PpmProcessor.h"
+
+struct PPM_Header *init_PPM_Header()
+{
+	struct PPM_Header *h = calloc(1, sizeof *h);
+	return h;
+}
+
+// Read PPM Header
+void readPPMHeader(FILE *file, struct PPM_Header *header)
+{
+	fread(&header->signature, sizeof(char) * 2, 1, file);
+	fread(&header->width, sizeof(unsigned), 1, file);
+	fread(&header->height, sizeof(unsigned), 1, file);
+	fread(&header->maxColorVal, sizeof(unsigned), 1, file);
+}
+
+// Write PPM Header
+void writePPMHeader(FILE *file, struct PPM_Header *header)
+{
+	fwrite(&header->signature, sizeof(char) * 2, 1, file);
+	fwrite(&header->width, sizeof(int), 1, file);
+	fwrite(&header->height, sizeof(int), 1, file);
+	fwrite(&header->maxColorVal, sizeof(unsigned), 1, file);
+}
+
+// Make PPM Header
+void makePPMHeader(struct PPM_Header *header, int width, int height)
+{
+	struct PPM_Header *head = header;
+
+	header->signature[0] = 'P';
+	header->signature[1] = '6';
+	header->width = width;
+	header->height = height;
+	header->maxColorVal = 255;
+	header = head;
+}
+
+// Read Pixels from PPM file
+void readPixelsPPM(FILE *file, struct Pixel **pArr, int width, int height)
+{
+	int counter = 0;
+	struct Pixel *temp = pArr;
+
+	for (int x = 0; x < width; x++)
+	{
+		for (int y = 0; y < height; y++)
+		{
+			fscanf(file, "%c", &temp[counter].r);
+			fscanf(file, "%c", &temp[counter].g);
+			fscanf(file, "%c", &temp[counter].b);
+
+			counter++;
+		}
+		fseek(file, sizeof(unsigned char) * width, SEEK_CUR);
+	}
+}
+
+// Write Pixels to PPM file
+void writePixelsPPM(FILE *file, struct Pixel **pArr, int width, int height)
+{
+	int counter = 0;
+	struct Pixel *temp = pArr;
+	for (int x = 0; x < width; x++)
+	{
+		for (int y = 0; y < height; y++)
+		{
+			fprintf(file, "%c\n %c\n %c\n", temp[counter].r, temp[counter].g, temp[counter].b);
+			counter++;
+		}
+		fseek(file, sizeof(unsigned char) * width, SEEK_CUR);
+	}
+}

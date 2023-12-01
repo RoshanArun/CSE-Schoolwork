@@ -3,77 +3,9 @@
   "configurations": [
     {
       "type": "java",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
-      "name": "Launch CompletedBenchMarkTool",
+      "name": "JdbcLab",
       "request": "launch",
-      "mainClass": "edu.ser222.m02_01.CompletedBenchMarkTool",
-      "projectName": "CSE-Schoolwork_ad172680"
-    },
-    {
-      "type": "java",
->>>>>>> Stashed changes
-      "name": "Launch HW1",
-      "request": "launch",
-      "mainClass": "HW1",
-      "projectName": "CSE-Schoolwork_ad172680"
-    },
-    {
-      "type": "java",
-      "name": "Launch CompletedBenchmarkTool",
-      "request": "launch",
-      "mainClass": "edu.ser222.m02_01.CompletedBenchmarkTool",
-      "projectName": "CSE-Schoolwork_ad172680"
-    },
-    {
-      "type": "java",
-      "name": "Launch CheckersDriver",
-      "request": "launch",
-      "mainClass": "edu.ser216.checkers.core.CheckersDriver",
-      "projectName": "CSE-Schoolwork_ad172680"
-    },
-    {
-      "type": "java",
-      "name": "Launch Test",
-      "request": "launch",
-      "mainClass": "Test",
-      "projectName": "CSE-Schoolwork_ad172680"
-    },
-    {
-      "type": "java",
-      "name": "Launch CompletedDeque",
-      "request": "launch",
-      "mainClass": "CompletedDeque",
-      "projectName": "CSE-Schoolwork_ad172680"
-    },
-    {
-      "type": "java",
-=======
->>>>>>> parent of 8d66cdb (CSE Update)
-=======
->>>>>>> parent of 8d66cdb (CSE Update)
-=======
->>>>>>> parent of 8d66cdb (CSE Update)
-      "name": "Launch Driver",
-      "request": "launch",
-      "mainClass": "edu.ser222.m01_03.Driver",
-      "projectName": "CSE-Schoolwork_ad172680"
-    },
-    {
-      "type": "java",
-      "name": "Launch CompletedDeque",
-      "request": "launch",
-      "mainClass": "edu.ser222.m01_03.CompletedDeque",
-      "projectName": "CSE-Schoolwork_ad172680"
-    },
-    {
-      "type": "java",
-      "name": "Launch CompletedMatrix",
-      "request": "launch",
-      "mainClass": "edu.ser222.m01_02.CompletedMatrix",
+      "mainClass": "JdbcLab",
       "projectName": "CSE-Schoolwork_ad172680"
     },
     {
@@ -83,8 +15,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/32169/OneDrive/Documents/GitHub/CSE-Schoolwork/C++ (CSE 240)",
-      "program": "c:/Users/32169/OneDrive/Documents/GitHub/CSE-Schoolwork/C++ (CSE 240)/build/Debug/outDebug",
+      "cwd": ".",
+      "program": "build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
