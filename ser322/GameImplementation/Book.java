@@ -1,5 +1,6 @@
-import GameImplementation.Product;
+import Product;
 
+package GameImplementation;
 class Book extends Product {
     Book(String type) {
         this.type = type;

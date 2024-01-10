@@ -1,9 +1,10 @@
+package GameImplementation;
 // Main class to run the program
 
-import GameImplementation.BookFactory;
-import GameImplementation.GameFactory;
-import GameImplementation.Product;
-import GameImplementation.ProductFactory;
+import BookFactory;
+import GameFactory;
+import Product;
+import ProductFactory;
 
 class Main {
     public static void main(String[] args) {

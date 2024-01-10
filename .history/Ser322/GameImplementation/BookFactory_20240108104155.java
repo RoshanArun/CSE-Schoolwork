@@ -1,7 +1,8 @@
-import GameImplementation.Book;
-import GameImplementation.Product;
-import GameImplementation.ProductFactory;
+import Book;
+import Product;
+import ProductFactory;
 
+package GameImplementation;
 class BookFactory extends ProductFactory {
     @Override
     Product createProduct(String type) {

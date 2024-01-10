@@ -1,6 +1,7 @@
+package GameImplementation;
 // Abstract Factory
 
-import GameImplementation.Product;
+import Product;
 
 abstract class ProductFactory {
     abstract Product createProduct(String type);

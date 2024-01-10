@@ -1,8 +1,9 @@
+package GameImplementation;
 // Concrete Factory for Games
 
-import GameImplementation.Game;
-import GameImplementation.Product;
-import GameImplementation.ProductFactory;
+import Game;
+import Product;
+import ProductFactory;
 
 class GameFactory extends ProductFactory {
     @Override
